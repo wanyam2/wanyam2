@@ -10,7 +10,7 @@
 <br>
 
 <h3 align="center">❤️ I like...</h3>
-<p align="center">⚾️ Baseball,&nbsp;&nbsp;💡 HIGHLIGHT,&nbsp;&nbsp;😴 SLEEP,&nbsp;&nbsp;✈️ Trip&nbsp;&nbsp;</p>
+<p align="center">⚾️ LG TWINS,&nbsp;&nbsp;💡 HIGHLIGHT,&nbsp;&nbsp;😴 SLEEP,&nbsp;&nbsp;✈️ Trip&nbsp;&nbsp;</p>
 
 <br>
 
