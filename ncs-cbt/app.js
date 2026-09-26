@@ -155,6 +155,14 @@
     const i = state.index;
     const q = Q[i];
     $("qSubject").textContent = q.subject;
+    const fmt = $("qFormat");
+    if (q.format) {
+      fmt.hidden = false;
+      fmt.textContent = q.format;
+    } else {
+      fmt.hidden = true;
+      fmt.textContent = "";
+    }
     $("qNum").textContent = `${i + 1} / ${TOTAL}`;
     $("qStem").textContent = q.stem;
 

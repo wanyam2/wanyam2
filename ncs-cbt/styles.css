@@ -345,6 +345,10 @@ h1 {
   font-size: 0.78rem;
   font-weight: 600;
 }
+.badge.format {
+  background: rgba(196, 92, 38, 0.12);
+  color: var(--accent-2);
+}
 .q-num { color: var(--muted); font-size: 0.85rem; }
 .q-stem {
   font-size: 1.2rem;
