@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NCS 고등학교 CBT · 50문항</title>
+  <title>NCS 고등학교 CBT · 50문항 (약점 집중)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet" />
@@ -17,7 +17,7 @@
       <span class="brand-mark">NCS</span>
       <div class="brand-text">
         <strong>고등학교 CBT</strong>
-        <span>일반상식 · 역사 · 수리/물리 · 영어 · 논리 · 논술</span>
+        <span>역사·영어·논리 집중 · 전 문항 객관식</span>
       </div>
     </div>
     <div class="top-meta" id="topMeta" hidden>
@@ -30,19 +30,20 @@
   </header>
 
   <main>
-    <!-- START -->
     <section class="panel start-panel" id="startPanel">
-      <p class="eyebrow">Computer Based Test</p>
-      <h1>NCS 형식<br />고등학교 수준 퀴즈</h1>
-      <p class="lead">총 50문항 · 과목별 혼합 · 즉시 채점 · 해설 제공</p>
+      <p class="eyebrow">Computer Based Test · Set 2</p>
+      <h1>NCS 형식<br />약점 집중 퀴즈</h1>
+      <p class="lead">총 50문항 · 전부 객관식 · 즉시 채점 · 해설 제공</p>
+
+      <div class="focus-banner" id="focusBanner"></div>
 
       <ul class="subject-grid" aria-label="과목 구성">
+        <li class="hot"><b>역사상식</b><span>12문항 · 집중</span></li>
+        <li class="hot"><b>영어</b><span>10문항 · 집중</span></li>
+        <li class="hot"><b>논리</b><span>10문항 · 집중</span></li>
         <li><b>일반상식</b><span>8문항</span></li>
-        <li><b>역사상식</b><span>8문항</span></li>
-        <li><b>수리·물리</b><span>10문항</span></li>
-        <li><b>영어</b><span>8문항</span></li>
-        <li><b>논리</b><span>8문항</span></li>
-        <li><b>논술</b><span>8문항</span></li>
+        <li><b>수리·물리</b><span>6문항</span></li>
+        <li><b>의사소통</b><span>4문항 · 구 논술</span></li>
       </ul>
 
       <div class="cta-row">
@@ -52,10 +53,9 @@
           60분 타이머
         </label>
       </div>
-      <p class="hint">객관식은 선택 후 바로 채점할 수 있고, 논술은 제출 후 모범답안과 비교합니다.</p>
+      <p class="hint">선택 후 <b>정답 확인</b>으로 바로 채점하세요. 제출 시 과목별 약점이 이 기기에 저장됩니다.</p>
     </section>
 
-    <!-- QUIZ -->
     <section class="panel quiz-panel" id="quizPanel" hidden>
       <div class="quiz-layout">
         <aside class="nav-pane" aria-label="문항 번호">
@@ -72,10 +72,6 @@
           <h2 class="q-stem" id="qStem"></h2>
           <div class="q-passage" id="qPassage" hidden></div>
           <div class="choices" id="choices"></div>
-          <div class="essay-box" id="essayBox" hidden>
-            <label for="essayInput">답안 작성</label>
-            <textarea id="essayInput" rows="8" placeholder="핵심 논점과 근거를 간결히 작성하세요."></textarea>
-          </div>
           <div class="feedback" id="feedback" hidden></div>
           <div class="action-row">
             <button type="button" class="btn ghost" id="prevBtn">이전</button>
@@ -86,7 +82,6 @@
       </div>
     </section>
 
-    <!-- RESULT -->
     <section class="panel result-panel" id="resultPanel" hidden>
       <p class="eyebrow">결과</p>
       <h1 id="scoreTitle">채점 완료</h1>
@@ -97,6 +92,7 @@
           <span id="scoreFrac">0 / 50</span>
         </div>
       </div>
+      <div class="weakness-box" id="weaknessBox"></div>
       <div class="subject-scores" id="subjectScores"></div>
       <div class="cta-row">
         <button type="button" class="btn primary" id="reviewBtn">오답·해설 다시보기</button>

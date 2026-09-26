@@ -1,14 +1,15 @@
 (() => {
   const Q = window.NCS_QUESTIONS;
+  const META = window.NCS_META || {};
   const KEYS = ["①", "②", "③", "④", "⑤"];
   const TOTAL = Q.length;
-  const ESSAY_PASS = 0.4; // keyword coverage threshold for auto-score hint
+  const STORAGE_KEY = "ncs-cbt-history-v2";
 
   const state = {
     index: 0,
-    answers: Array(TOTAL).fill(null), // mc: number | essay: string
+    answers: Array(TOTAL).fill(null),
     checked: Array(TOTAL).fill(false),
-    results: Array(TOTAL).fill(null), // true/false/null (essay: 'partial'|'pass'|'fail')
+    results: Array(TOTAL).fill(null),
     timerOn: true,
     seconds: 60 * 60,
     timerId: null,
@@ -22,11 +23,43 @@
   const resultPanel = $("resultPanel");
   const topMeta = $("topMeta");
 
+  function loadHistory() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    } catch {
+      return [];
+    }
+  }
+
+  function saveAttempt(payload) {
+    const hist = loadHistory();
+    hist.unshift(payload);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(hist.slice(0, 10)));
+  }
+
+  function lastWeakSubjects() {
+    const hist = loadHistory();
+    if (!hist.length) return META.focus || [];
+    const last = hist[0];
+    return (last.subjects || [])
+      .filter((s) => s.total > 0 && s.correct / s.total < 0.6)
+      .sort((a, b) => a.correct / a.total - b.correct / b.total)
+      .map((s) => s.name)
+      .slice(0, 3);
+  }
+
+  function renderFocusBanner() {
+    const box = $("focusBanner");
+    const weak = lastWeakSubjects();
+    const fromHistory = loadHistory().length > 0;
+    const labels = weak.length ? weak.join(" · ") : (META.focus || []).join(" · ");
+    box.innerHTML = fromHistory
+      ? `<strong>지난 응시 약점 반영</strong><span>정답률 낮은 과목: <b>${labels}</b> — 이번 세트는 해당 영역을 더 많이 포함합니다.</span>`
+      : `<strong>약점 집중 세트</strong><span>${META.focusNote || ""}</span><br/><span>집중 과목: <b>${labels}</b></span>`;
+  }
+
   function answeredCount() {
-    return state.answers.filter((a, i) => {
-      if (Q[i].type === "essay") return typeof a === "string" && a.trim().length > 0;
-      return a !== null;
-    }).length;
+    return state.answers.filter((a) => a !== null).length;
   }
 
   function updateProgress() {
@@ -64,7 +97,6 @@
       btn.textContent = String(i + 1);
       btn.title = q.subject;
       btn.addEventListener("click", () => {
-        saveEssayDraft();
         state.index = i;
         renderQuestion();
       });
@@ -75,88 +107,14 @@
   function refreshNav() {
     const buttons = $("navGrid").children;
     [...buttons].forEach((btn, i) => {
-      btn.classList.remove("current", "answered", "correct", "wrong", "essay-done");
+      btn.classList.remove("current", "answered", "correct", "wrong");
       if (i === state.index) btn.classList.add("current");
-      const a = state.answers[i];
-      const has =
-        Q[i].type === "essay"
-          ? typeof a === "string" && a.trim().length > 0
-          : a !== null;
-      if (has) btn.classList.add("answered");
+      if (state.answers[i] !== null) btn.classList.add("answered");
       if (state.checked[i]) {
-        if (Q[i].type === "essay") btn.classList.add("essay-done");
-        else if (state.results[i] === true) btn.classList.add("correct");
+        if (state.results[i] === true) btn.classList.add("correct");
         else if (state.results[i] === false) btn.classList.add("wrong");
       }
     });
-  }
-
-  function saveEssayDraft() {
-    const q = Q[state.index];
-    if (q.type !== "essay") return;
-    state.answers[state.index] = $("essayInput").value;
-  }
-
-  function scoreEssay(text, q) {
-    const raw = (text || "").trim();
-    if (!raw) return { ok: false, label: "fail", ratio: 0 };
-    const lower = raw.toLowerCase();
-    const keys = q.keywords || [];
-    const hit = keys.filter((k) => lower.includes(k.toLowerCase())).length;
-    const ratio = keys.length ? hit / keys.length : 0;
-    if (raw.length >= 40 && ratio >= ESSAY_PASS) return { ok: true, label: "pass", ratio, hit, total: keys.length };
-    if (raw.length >= 20) return { ok: null, label: "partial", ratio, hit, total: keys.length };
-    return { ok: false, label: "fail", ratio, hit, total: keys.length };
-  }
-
-  function checkCurrent() {
-    const i = state.index;
-    const q = Q[i];
-    saveEssayDraft();
-
-    if (q.type === "mc") {
-      if (state.answers[i] === null) {
-        showFeedback("답을 선택한 뒤 확인하세요.", "no");
-        return;
-      }
-      const correct = state.answers[i] === q.answer;
-      state.checked[i] = true;
-      state.results[i] = correct;
-      renderQuestion();
-      showFeedback(
-        correct ? "정답입니다." : `오답입니다. 정답은 ${KEYS[q.answer]}입니다.`,
-        correct ? "ok" : "no",
-        q.explain
-      );
-    } else {
-      const text = state.answers[i] || "";
-      if (!text.trim()) {
-        showFeedback("답안을 작성한 뒤 확인하세요.", "no");
-        return;
-      }
-      const scored = scoreEssay(text, q);
-      state.checked[i] = true;
-      state.results[i] = scored.label;
-      const tip =
-        scored.label === "pass"
-          ? `자동 평가: 핵심 키워드를 잘 포함했습니다. (${scored.hit}/${scored.total})`
-          : scored.label === "partial"
-            ? `자동 평가: 부분 충족. 모범답안과 비교해 보완하세요. (키워드 ${scored.hit}/${scored.total})`
-            : `자동 평가: 보완 필요. 모범답안을 참고하세요. (키워드 ${scored.hit}/${scored.total})`;
-      showFeedback(tip, "essay", q.explain, q.modelAnswer);
-    }
-    updateProgress();
-    refreshNav();
-  }
-
-  function showFeedback(title, kind, explain, model) {
-    const box = $("feedback");
-    box.hidden = false;
-    box.className = `feedback ${kind}`;
-    let html = `<strong>${title}</strong>`;
-    if (explain) html += `<div>${explain}</div>`;
-    if (model) html += `<div class="model"><b>모범답안</b><br>${escapeHtml(model)}</div>`;
-    box.innerHTML = html;
   }
 
   function escapeHtml(s) {
@@ -164,6 +122,33 @@
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
+  }
+
+  function showFeedback(title, kind, explain) {
+    const box = $("feedback");
+    box.hidden = false;
+    box.className = `feedback ${kind}`;
+    box.innerHTML = `<strong>${title}</strong>${explain ? `<div>${explain}</div>` : ""}`;
+  }
+
+  function checkCurrent() {
+    const i = state.index;
+    const q = Q[i];
+    if (state.answers[i] === null) {
+      showFeedback("답을 선택한 뒤 확인하세요.", "no");
+      return;
+    }
+    const correct = state.answers[i] === q.answer;
+    state.checked[i] = true;
+    state.results[i] = correct;
+    renderQuestion();
+    showFeedback(
+      correct ? "정답입니다." : `오답입니다. 정답은 ${KEYS[q.answer]}입니다.`,
+      correct ? "ok" : "no",
+      q.explain
+    );
+    updateProgress();
+    refreshNav();
   }
 
   function renderQuestion() {
@@ -183,66 +168,40 @@
     }
 
     const choices = $("choices");
-    const essayBox = $("essayBox");
     const feedback = $("feedback");
     feedback.hidden = true;
     feedback.innerHTML = "";
+    choices.innerHTML = "";
 
-    if (q.type === "mc") {
-      essayBox.hidden = true;
-      choices.hidden = false;
-      choices.innerHTML = "";
-      q.choices.forEach((c, ci) => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "choice";
-        if (state.answers[i] === ci) btn.classList.add("selected");
-        if (state.checked[i]) {
-          if (ci === q.answer) btn.classList.add("correct");
-          else if (state.answers[i] === ci) btn.classList.add("wrong");
-        }
-        btn.innerHTML = `<span class="choice-key">${KEYS[ci]}</span><span>${escapeHtml(c)}</span>`;
-        btn.addEventListener("click", () => {
-          if (state.finished) return;
-          state.answers[i] = ci;
-          // allow re-check after changing answer
-          state.checked[i] = false;
-          state.results[i] = null;
-          renderQuestion();
-          updateProgress();
-          refreshNav();
-        });
-        choices.appendChild(btn);
-      });
+    q.choices.forEach((c, ci) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "choice";
+      if (state.answers[i] === ci) btn.classList.add("selected");
       if (state.checked[i]) {
-        const correct = state.results[i] === true;
-        showFeedback(
-          correct ? "정답입니다." : `오답입니다. 정답은 ${KEYS[q.answer]}입니다.`,
-          correct ? "ok" : "no",
-          q.explain
-        );
+        if (ci === q.answer) btn.classList.add("correct");
+        else if (state.answers[i] === ci) btn.classList.add("wrong");
       }
-    } else {
-      choices.hidden = true;
-      choices.innerHTML = "";
-      essayBox.hidden = false;
-      $("essayInput").value = state.answers[i] || "";
-      $("essayInput").oninput = () => {
-        state.answers[i] = $("essayInput").value;
+      btn.innerHTML = `<span class="choice-key">${KEYS[ci]}</span><span>${escapeHtml(c)}</span>`;
+      btn.addEventListener("click", () => {
+        if (state.finished) return;
+        state.answers[i] = ci;
         state.checked[i] = false;
+        state.results[i] = null;
+        renderQuestion();
         updateProgress();
         refreshNav();
-      };
-      if (state.checked[i]) {
-        const scored = scoreEssay(state.answers[i], q);
-        const tip =
-          scored.label === "pass"
-            ? `자동 평가: 핵심 키워드를 잘 포함했습니다. (${scored.hit}/${scored.total})`
-            : scored.label === "partial"
-              ? `자동 평가: 부분 충족. 모범답안과 비교해 보완하세요. (키워드 ${scored.hit}/${scored.total})`
-              : `자동 평가: 보완 필요. 모범답안을 참고하세요. (키워드 ${scored.hit || 0}/${scored.total || 0})`;
-        showFeedback(tip, "essay", q.explain, q.modelAnswer);
-      }
+      });
+      choices.appendChild(btn);
+    });
+
+    if (state.checked[i]) {
+      const correct = state.results[i] === true;
+      showFeedback(
+        correct ? "정답입니다." : `오답입니다. 정답은 ${KEYS[q.answer]}입니다.`,
+        correct ? "ok" : "no",
+        q.explain
+      );
     }
 
     $("prevBtn").disabled = i === 0;
@@ -281,69 +240,74 @@
 
   function computeScores() {
     const bySubject = {};
-    let mcCorrect = 0;
-    let mcTotal = 0;
-    let essayPass = 0;
-    let essayPartial = 0;
-    let essayTotal = 0;
+    let correct = 0;
 
     Q.forEach((q, i) => {
-      if (!bySubject[q.subject]) bySubject[q.subject] = { correct: 0, total: 0, essayNote: 0 };
+      if (!bySubject[q.subject]) bySubject[q.subject] = { name: q.subject, correct: 0, total: 0 };
       bySubject[q.subject].total += 1;
-
-      if (q.type === "mc") {
-        mcTotal += 1;
-        const ok = state.answers[i] === q.answer;
-        if (ok) {
-          mcCorrect += 1;
-          bySubject[q.subject].correct += 1;
-        }
-        state.results[i] = ok;
-        state.checked[i] = true;
-      } else {
-        essayTotal += 1;
-        const scored = scoreEssay(state.answers[i], q);
-        state.results[i] = scored.label;
-        state.checked[i] = true;
-        if (scored.label === "pass") {
-          essayPass += 1;
-          bySubject[q.subject].correct += 1;
-        } else if (scored.label === "partial") {
-          essayPartial += 1;
-          bySubject[q.subject].correct += 0.5;
-          bySubject[q.subject].essayNote += 1;
-        }
+      const ok = state.answers[i] === q.answer;
+      state.results[i] = ok;
+      state.checked[i] = true;
+      if (ok) {
+        correct += 1;
+        bySubject[q.subject].correct += 1;
       }
     });
 
-    // Weighted: MC exact + essay pass=1, partial=0.5
-    const essayScore = essayPass + essayPartial * 0.5;
-    const totalScore = mcCorrect + essayScore;
-    return { bySubject, mcCorrect, mcTotal, essayPass, essayPartial, essayTotal, totalScore };
+    const subjects = Object.values(bySubject);
+    return { correct, subjects };
   }
 
   function finishTest(fromTimer) {
-    saveEssayDraft();
     if (state.timerId) clearInterval(state.timerId);
     state.finished = true;
 
     const scores = computeScores();
-    const pct = Math.round((scores.totalScore / TOTAL) * 100);
+    const pct = Math.round((scores.correct / TOTAL) * 100);
+    const weak = scores.subjects
+      .filter((s) => s.total > 0)
+      .map((s) => ({ ...s, rate: s.correct / s.total }))
+      .sort((a, b) => a.rate - b.rate);
+
+    saveAttempt({
+      at: Date.now(),
+      version: META.version || 2,
+      correct: scores.correct,
+      total: TOTAL,
+      subjects: scores.subjects
+    });
 
     quizPanel.hidden = true;
     resultPanel.hidden = false;
     $("scoreTitle").textContent = fromTimer ? "시간 종료 · 자동 제출" : "채점 완료";
-    $("scoreLead").textContent =
-      `객관식 ${scores.mcCorrect}/${scores.mcTotal} · 논술 충족 ${scores.essayPass} · 부분 ${scores.essayPartial} (논술 ${scores.essayTotal}문항)`;
+    $("scoreLead").textContent = `전체 정답 ${scores.correct}/${TOTAL}`;
     $("scorePct").textContent = `${pct}%`;
-    $("scoreFrac").textContent = `${scores.totalScore.toFixed(1)} / ${TOTAL}`;
+    $("scoreFrac").textContent = `${scores.correct} / ${TOTAL}`;
     $("scoreRing").style.setProperty("--p", `${pct}%`);
+
+    const wbox = $("weaknessBox");
+    const topWeak = weak.filter((s) => s.rate < 0.7).slice(0, 3);
+    if (topWeak.length) {
+      wbox.innerHTML =
+        `<strong>약점 분석</strong>` +
+        topWeak
+          .map(
+            (s) =>
+              `<div class="weak-row"><span>${s.name}</span><b>${s.correct}/${s.total}</b> <em>(${Math.round(s.rate * 100)}%)</em></div>`
+          )
+          .join("") +
+        `<p class="weak-tip">다음 세트에서는 위 과목 비중을 더 늘리는 것을 권장합니다. 결과는 이 기기에 저장되었습니다.</p>`;
+    } else {
+      wbox.innerHTML = `<strong>약점 분석</strong><p class="weak-tip">전 과목 정답률이 고르게 양호합니다. 오답 해설을 복습해 보세요.</p>`;
+    }
 
     const box = $("subjectScores");
     box.innerHTML = "";
-    Object.entries(scores.bySubject).forEach(([name, s]) => {
+    scores.subjects.forEach((s) => {
+      const rate = Math.round((s.correct / s.total) * 100);
       const art = document.createElement("article");
-      art.innerHTML = `<h3>${name}</h3><p>${s.correct.toFixed(1)} / ${s.total}</p>`;
+      if (rate < 60) art.classList.add("weak");
+      art.innerHTML = `<h3>${s.name}</h3><p>${s.correct} / ${s.total} · ${rate}%</p>`;
       box.appendChild(art);
     });
   }
@@ -351,14 +315,12 @@
   $("startBtn").addEventListener("click", startTest);
   $("checkBtn").addEventListener("click", checkCurrent);
   $("prevBtn").addEventListener("click", () => {
-    saveEssayDraft();
     if (state.index > 0) {
       state.index -= 1;
       renderQuestion();
     }
   });
   $("nextBtn").addEventListener("click", () => {
-    saveEssayDraft();
     if (state.index < TOTAL - 1) {
       state.index += 1;
       renderQuestion();
@@ -381,14 +343,14 @@
     quizPanel.hidden = true;
     topMeta.hidden = true;
     if (state.timerId) clearInterval(state.timerId);
+    renderFocusBanner();
   });
 
-  // keyboard: 1-5 select, N/P navigate
   document.addEventListener("keydown", (e) => {
     if (!state.started || state.finished || quizPanel.hidden) return;
+    if (e.target && (e.target.tagName === "TEXTAREA" || e.target.tagName === "INPUT")) return;
     const q = Q[state.index];
-    if (e.target && e.target.tagName === "TEXTAREA") return;
-    if (q.type === "mc" && e.key >= "1" && e.key <= "5") {
+    if (e.key >= "1" && e.key <= "5") {
       const ci = Number(e.key) - 1;
       if (ci < q.choices.length) {
         state.answers[state.index] = ci;
@@ -399,4 +361,6 @@
     }
     if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) checkCurrent();
   });
+
+  renderFocusBanner();
 })();
