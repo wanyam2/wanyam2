@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NCS 고등학교 CBT · 50문항 (약점 집중)</title>
+  <title>NCS 고등학교 CBT · Set 4 역사 집중</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet" />
@@ -17,7 +17,7 @@
       <span class="brand-mark">NCS</span>
       <div class="brand-text">
         <strong>고등학교 CBT</strong>
-        <span>Set 3 · 유형 혼합 · 역사·영어·논리 강화</span>
+        <span>Set 4 · 역사 집중 + 암기 자료</span>
       </div>
     </div>
     <div class="top-meta" id="topMeta" hidden>
@@ -31,29 +31,30 @@
 
   <main>
     <section class="panel start-panel" id="startPanel">
-      <p class="eyebrow">Computer Based Test · Set 3</p>
-      <h1>NCS 형식<br />유형 혼합 · 약점 강화</h1>
-      <p class="lead">총 50문항 · 지문·빈칸·순서·자료·상황판단 혼합 · 즉시 채점</p>
+      <p class="eyebrow">Computer Based Test · Set 4</p>
+      <h1>NCS 형식<br />역사 집중 퀴즈</h1>
+      <p class="lead">총 50문항 · 역사 38문항 · 전부 객관식 · 즉시 채점</p>
 
       <div class="focus-banner" id="focusBanner"></div>
 
       <ul class="subject-grid" aria-label="과목 구성">
-        <li class="hot"><b>역사상식</b><span>15문항 · 강화</span></li>
-        <li class="hot"><b>영어</b><span>13문항 · 강화</span></li>
-        <li class="hot"><b>논리</b><span>12문항 · 강화</span></li>
-        <li><b>일반상식</b><span>4문항</span></li>
-        <li><b>수리·물리</b><span>3문항</span></li>
-        <li><b>의사소통</b><span>3문항</span></li>
+        <li class="hot"><b>역사상식</b><span>38문항 · 최집중</span></li>
+        <li><b>영어</b><span>3문항</span></li>
+        <li><b>논리</b><span>3문항</span></li>
+        <li><b>일반상식</b><span>2문항</span></li>
+        <li><b>수리·물리</b><span>2문항</span></li>
+        <li><b>의사소통</b><span>2문항</span></li>
       </ul>
 
       <div class="cta-row">
         <button type="button" class="btn primary" id="startBtn">시험 시작</button>
+        <a class="btn secondary" href="study.html">역사 암기 자료</a>
         <label class="check-inline">
           <input type="checkbox" id="timerToggle" checked />
           60분 타이머
         </label>
       </div>
-      <p class="hint">선택 후 <b>정답 확인</b>으로 바로 채점하세요. 제출 시 과목별 약점이 이 기기에 저장됩니다.</p>
+      <p class="hint">먼저 <b>암기 자료</b>로 연표를 보고 오시거나, 바로 풀어보고 오답을 복습하세요.</p>
     </section>
 
     <section class="panel quiz-panel" id="quizPanel" hidden>
@@ -97,6 +98,7 @@
       <div class="subject-scores" id="subjectScores"></div>
       <div class="cta-row">
         <button type="button" class="btn primary" id="reviewBtn">오답·해설 다시보기</button>
+        <a class="btn secondary" href="study.html">암기 자료로 복습</a>
         <button type="button" class="btn ghost" id="restartBtn">다시 풀기</button>
       </div>
     </section>

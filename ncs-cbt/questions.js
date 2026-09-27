@@ -1,633 +1,342 @@
-/* NCS High School CBT v3 — mixed formats, heavier weak-subject mix
-   Focus: 역사상식(15) · 영어(13) · 논리(12) · 일반상식(4) · 수리·물리(3) · 의사소통(3) */
+/* NCS CBT Set 4 — History-heavy (고등 수준)
+   역사상식 38 · 영어 3 · 논리 3 · 일반상식 2 · 수리·물리 2 · 의사소통 2 */
 window.NCS_META = {
-  version: 3,
-  focus: ["역사상식", "영어", "논리"],
+  version: 4,
+  focus: ["역사상식"],
   focusNote:
-    "약점 과목(역사·영어·논리) 비중을 Set 2보다 더 늘렸습니다. 지문·빈칸·순서·자료해석·상황판단 등 유형을 섞었습니다."
+    "역사 약점 집중 세트입니다. 한국사·세계사 핵심을 중심으로 출제했고, 암기 자료(study.html)와 함께 복습하세요."
 };
 
 window.NCS_QUESTIONS = [
-  // ===== 역사상식 1–15 =====
+  // ===== 역사상식 1–38 =====
   {
-    id: 1,
-    subject: "역사상식",
-    format: "사실확인",
-    type: "mc",
-    stem: "발해를 건국한 인물은?",
-    choices: ["대조영", "주몽", "온조", "박혁거세", "왕건"],
-    answer: 0,
-    explain: "고구려 유민 대조영이 698년 발해를 건국했다."
+    id: 1, subject: "역사상식", format: "고대", type: "mc",
+    stem: "고조선의 건국 설화와 관련된 인물은?",
+    choices: ["주몽", "온조", "단군왕검", "박혁거세", "대조영"],
+    answer: 2, explain: "단군왕검이 고조선을 세웠다는 건국 설화가 전한다."
   },
   {
-    id: 2,
-    subject: "역사상식",
-    format: "지문독해",
-    type: "mc",
-    stem: "윗글의 왕이 추진한 정책으로 알맞은 것은?",
-    passage:
-      "이 왕은 노비안검법을 실시하고 과거제를 도입하였다. 또한 훈요십조와 관련은 없으나, 호족 세력을 누르고 왕권을 강화하려 하였다.",
-    choices: ["대동법 시행", "광종의 왕권 강화책", "세도정치 확립", "갑오개혁", "위정척사 운동"],
-    answer: 1,
-    explain: "노비안검법·과거제는 고려 광종의 왕권 강화책이다."
+    id: 2, subject: "역사상식", format: "고대", type: "mc",
+    stem: "고구려를 건국한 인물은?",
+    choices: ["온조", "주몽", "김수로", "왕건", "이성계"],
+    answer: 1, explain: "주몽(동명성왕)이 고구려를 건국했다."
   },
   {
-    id: 3,
-    subject: "역사상식",
-    format: "순서배열",
-    type: "mc",
-    stem: "다음 사건을 일어난 순서대로 나열한 것은?\n(가) 임진왜란\n(나) 병자호란\n(다) 갑오개혁\n(라) 3·1 운동",
+    id: 3, subject: "역사상식", format: "고대", type: "mc",
+    stem: "백제를 건국한 인물은?",
+    choices: ["온조", "근초고왕", "성왕", "의자왕", "계백"],
+    answer: 0, explain: "온조왕이 백제를 건국했다."
+  },
+  {
+    id: 4, subject: "역사상식", format: "고대", type: "mc",
+    stem: "신라 화랑도와 불교 공인을 추진한 왕으로 알려진 인물은?",
+    choices: ["진흥왕", "법흥왕", "무열왕", "문무왕", "신문왕"],
+    answer: 1, explain: "법흥왕 때 불교가 공인되었다. (화랑도는 진흥왕 대에 정비·활성화)"
+  },
+  {
+    id: 5, subject: "역사상식", format: "사실확인", type: "mc",
+    stem: "신라가 삼국을 통일하는 과정에서 먼저 멸망한 나라는?",
+    choices: ["고구려", "백제", "발해", "가야", "탐라"],
+    answer: 1, explain: "660년 백제 멸망 → 668년 고구려 멸망 순이다."
+  },
+  {
+    id: 6, subject: "역사상식", format: "남북국", type: "mc",
+    stem: "발해를 건국한 인물과 연도로 옳은 것은?",
+    choices: ["대조영 – 698년", "왕건 – 918년", "궁예 – 901년", "견훤 – 900년", "문무왕 – 668년"],
+    answer: 0, explain: "대조영이 698년 발해를 건국했다."
+  },
+  {
+    id: 7, subject: "역사상식", format: "고려", type: "mc",
+    stem: "고려를 건국한 인물은?",
+    choices: ["이성계", "왕건", "궁예", "묘청", "최충헌"],
+    answer: 1, explain: "왕건이 918년 고려를 건국했다."
+  },
+  {
+    id: 8, subject: "역사상식", format: "고려", type: "mc",
+    stem: "고려 광종이 실시한 제도로 옳은 것은?",
+    choices: ["대동법", "과거제", "균역법", "영정법", "직전법"],
+    answer: 1, explain: "광종이 과거제를 도입하고 노비안검법 등으로 왕권을 강화했다."
+  },
+  {
+    id: 9, subject: "역사상식", format: "고려", type: "mc",
+    stem: "고려 무신정변이 일어난 왕 때는?",
+    choices: ["광종", "성종", "의종", "공민왕", "충렬왕"],
+    answer: 2, explain: "1170년 의종 때 무신정변이 일어났다."
+  },
+  {
+    id: 10, subject: "역사상식", format: "고려", type: "mc",
+    stem: "팔만대장경이 제작된 주요 배경은?",
+    choices: ["왜구 격퇴", "몽골 침입에 대한 염원", "임진왜란", "병자호란", "갑오개혁"],
+    answer: 1, explain: "몽골 침입 시기 부처의 힘으로 국난을 극복하려는 염원에서 조성되었다."
+  },
+  {
+    id: 11, subject: "역사상식", format: "조선", type: "mc",
+    stem: "조선 건국 연도와 건국자는?",
+    choices: ["918년 왕건", "1392년 이성계", "1446년 세종", "1592년 선조", "1636년 인조"],
+    answer: 1, explain: "이성계가 1392년 조선을 건국했다."
+  },
+  {
+    id: 12, subject: "역사상식", format: "조선", type: "mc",
+    stem: "훈민정음 반포 연도는?",
+    choices: ["1392년", "1418년", "1443년", "1446년", "1455년"],
+    answer: 3, explain: "1443년 창제, 1446년 반포."
+  },
+  {
+    id: 13, subject: "역사상식", format: "조선", type: "mc",
+    stem: "『경국대전』 편찬과 관련된 시기로 알맞은 것은?",
+    choices: ["태조", "세종", "세조~성종", "연산군", "영조"],
+    answer: 2, explain: "세조 때 편찬이 추진되고 성종 때 완성·반포되었다."
+  },
+  {
+    id: 14, subject: "역사상식", format: "조선", type: "mc",
+    stem: "임진왜란 발발 연도는?",
+    choices: ["1446년", "1592년", "1636년", "1876년", "1894년"],
+    answer: 1, explain: "1592년(선조 25)에 임진왜란이 일어났다."
+  },
+  {
+    id: 15, subject: "역사상식", format: "조선", type: "mc",
+    stem: "임진왜란 때 수군으로 큰 전과를 올린 장수는?",
+    choices: ["곽재우", "이순신", "권율", "김시민", "유성룡"],
+    answer: 1, explain: "이순신 장군이 한산도 대첩 등에서 활약했다."
+  },
+  {
+    id: 16, subject: "역사상식", format: "조선", type: "mc",
+    stem: "병자호란의 상대국(침략 세력)은?",
+    choices: ["일본", "명", "청", "러시아", "몽골"],
+    answer: 2, explain: "1636년 청의 침입으로 병자호란이 일어났다."
+  },
+  {
+    id: 17, subject: "역사상식", format: "조선", type: "mc",
+    stem: "실학자 정약용의 대표 저서로 알맞은 것은?",
+    choices: ["택리지", "열하일기", "목민심서", "세종실록", "동국통감"],
+    answer: 2, explain: "다산 정약용의 대표작으로 『목민심서』 등이 있다."
+  },
+  {
+    id: 18, subject: "역사상식", format: "순서배열", type: "mc",
+    stem: "다음을 시간순으로 배열한 것은?\n(가) 병자호란\n(나) 임진왜란\n(다) 조선 건국\n(라) 훈민정음 반포",
     choices: [
-      "(가)-(나)-(다)-(라)",
+      "(다)-(라)-(나)-(가)",
+      "(라)-(다)-(나)-(가)",
+      "(다)-(나)-(라)-(가)",
       "(나)-(가)-(다)-(라)",
-      "(가)-(다)-(나)-(라)",
-      "(다)-(가)-(나)-(라)",
-      "(나)-(다)-(가)-(라)"
+      "(다)-(라)-(가)-(나)"
     ],
     answer: 0,
-    explain: "임진왜란(1592) → 병자호란(1636) → 갑오개혁(1894) → 3·1 운동(1919)."
+    explain: "건국(1392)→훈민정음 반포(1446)→임진왜란(1592)→병자호란(1636)."
   },
   {
-    id: 4,
-    subject: "역사상식",
-    format: "사실확인",
-    type: "mc",
-    stem: "신라가 당과 연합하여 먼저 멸망시킨 나라는?",
-    choices: ["고구려", "백제", "가야", "발해", "탐라"],
-    answer: 1,
-    explain: "나당 연합군이 660년 백제를 멸하고, 이어 고구려를 공격하였다."
+    id: 19, subject: "역사상식", format: "개항기", type: "mc",
+    stem: "강화도 조약(조일수호조규)이 체결된 해는?",
+    choices: ["1860년", "1876년", "1884년", "1894년", "1905년"],
+    answer: 1, explain: "1876년 강화도 조약으로 조선이 개항했다."
   },
   {
-    id: 5,
-    subject: "역사상식",
-    format: "빈칸추론",
-    type: "mc",
-    stem: "조선 세종 때 편찬·반포된 _____는 훈민정음으로도 불린다. 빈칸에 알맞은 것은?",
-    choices: ["동국정운", "용비어천가", "한글(훈민정음)", "경국대전", "조선왕조실록"],
-    answer: 2,
-    explain: "훈민정음(한글)이 세종대에 창제·반포되었다."
+    id: 20, subject: "역사상식", format: "개항기", type: "mc",
+    stem: "갑신정변을 일으킨 세력은?",
+    choices: ["위정척사파", "급진 개화파", "동학교도", "의병", "대원군"],
+    answer: 1, explain: "김옥균 등 급진 개화파가 1884년 갑신정변을 일으켰다."
   },
   {
-    id: 6,
-    subject: "역사상식",
-    format: "상황판단",
-    type: "mc",
-    stem: "1905년 외교권이 박탈된 직후 설치된 일제의 통치 기구는?",
-    choices: ["총독부", "통감부", "군정청", "안동도호부", "한성부"],
-    answer: 1,
-    explain: "을사늑약(1905) 이후 통감부가 설치되었다. 총독부는 1910년 강제병합 이후."
+    id: 21, subject: "역사상식", format: "개항기", type: "mc",
+    stem: "동학농민운동이 일어난 해는?",
+    choices: ["1882년", "1884년", "1894년", "1905년", "1910년"],
+    answer: 2, explain: "1894년 동학농민운동이 일어났다."
   },
   {
-    id: 7,
-    subject: "역사상식",
-    format: "지문독해",
-    type: "mc",
-    stem: "밑글이 설명하는 운동은?",
-    passage:
-      "1919년 3월 1일, 민족대표 33인이 독립선언서를 발표하고 전국에서 만세 시위가 일어났다. 이후 상하이에 임시정부가 수립되는 계기가 되었다.",
-    choices: ["갑신정변", "동학농민운동", "3·1 운동", "광주학생항일운동", "4·19 혁명"],
-    answer: 2,
-    explain: "기술된 내용은 3·1 운동이다."
+    id: 22, subject: "역사상식", format: "개항기", type: "mc",
+    stem: "갑오개혁이 추진된 시기는?",
+    choices: ["임진왜란 직후", "병자호란 직후", "1894년 전후", "3·1 운동 직후", "광복 직후"],
+    answer: 2, explain: "1894년 전후 갑오개혁이 추진되었다."
   },
   {
-    id: 8,
-    subject: "역사상식",
-    format: "사실확인",
-    type: "mc",
-    stem: "일제 강점기 회사령·토지조사사업이 본격화된 시기의 통치 방식은?",
-    choices: ["문화 통치", "무단 통치", "민족 말살 통치", "군정", "신탁통치"],
-    answer: 1,
-    explain: "1910년대 무단 통치기에 토지조사사업·회사령 등이 시행되었다."
+    id: 23, subject: "역사상식", format: "개항기", type: "mc",
+    stem: "을사늑약(1905)으로 대한제국이 잃은 권리는?",
+    choices: ["사법권", "외교권", "교육권", "토지권", "참정권"],
+    answer: 1, explain: "을사늑약으로 외교권이 박탈되고 통감부가 설치되었다."
   },
   {
-    id: 9,
-    subject: "역사상식",
-    format: "자료해석",
-    type: "mc",
-    stem: "다음 연표에서 ‘광복’에 해당하는 해는?",
-    passage: "1905 을사늑약 → 1910 강제병합 → 1919 3·1 운동 → ? 광복 → 1948 정부 수립",
-    choices: ["1939년", "1941년", "1945년", "1950년", "1953년"],
-    answer: 2,
-    explain: "광복은 1945년 8월 15일이다."
+    id: 24, subject: "역사상식", format: "개항기", type: "mc",
+    stem: "한일 강제병합이 이루어진 해는?",
+    choices: ["1905년", "1907년", "1910년", "1919년", "1945년"],
+    answer: 2, explain: "1910년 강제병합으로 대한제국이 국권을 상실했다."
   },
   {
-    id: 10,
-    subject: "역사상식",
-    format: "사실확인",
-    type: "mc",
-    stem: "6·25 전쟁이 발발한 날짜는?",
-    choices: ["1948.8.15", "1950.6.25", "1953.7.27", "1960.4.19", "1980.5.18"],
-    answer: 1,
-    explain: "한국전쟁은 1950년 6월 25일 발발하였다."
+    id: 25, subject: "역사상식", format: "일제강점기", type: "mc",
+    stem: "1910년대 일제 통치 방식으로 알맞은 것은?",
+    choices: ["문화 통치", "무단 통치", "신탁통치", "군정 철폐", "지방자치"],
+    answer: 1, explain: "1910년대는 헌병 경찰 중심의 무단 통치기이다."
   },
   {
-    id: 11,
-    subject: "역사상식",
-    format: "빈칸추론",
-    type: "mc",
-    stem: "1960년 _____ 부정선거에 항의하여 4·19 혁명이 일어났다.",
-    choices: ["3·15", "5·16", "10·26", "12·12", "6·10"],
-    answer: 0,
-    explain: "3·15 부정선거가 4·19 혁명의 직접적 계기였다."
+    id: 26, subject: "역사상식", format: "일제강점기", type: "mc",
+    stem: "3·1 운동이 일어난 해는?",
+    choices: ["1910년", "1919년", "1929년", "1937년", "1945년"],
+    answer: 1, explain: "1919년 3월 1일 전국적 독립 만세 운동이 일어났다."
   },
   {
-    id: 12,
-    subject: "역사상식",
-    format: "세계사",
-    type: "mc",
-    stem: "프랑스 혁명이 시작된 해로 널리 알려진 것은?",
+    id: 27, subject: "역사상식", format: "일제강점기", type: "mc",
+    stem: "대한민국 임시정부가 수립된 장소는?",
+    choices: ["서울", "부산", "도쿄", "상하이", "블라디보스토크"],
+    answer: 3, explain: "1919년 중국 상하이에 대한민국 임시정부가 수립되었다."
+  },
+  {
+    id: 28, subject: "역사상식", format: "일제강점기", type: "mc",
+    stem: "1920년대 일제가 ‘문화 통치’를 표방하게 된 직접적 배경은?",
+    choices: ["갑신정변", "병인양요", "3·1 운동", "6·25 전쟁", "4·19 혁명"],
+    answer: 2, explain: "3·1 운동 이후 기만적 문화 통치로 전환했다."
+  },
+  {
+    id: 29, subject: "역사상식", format: "일제강점기", type: "mc",
+    stem: "일제 말기 민족 말살 통치의 사례로 알맞은 것은?",
+    choices: ["한글 신문 허용", "창씨개명", "회사령 폐지", "보통선거 실시", "토지조사 중단"],
+    answer: 1, explain: "황국신민화 정책의 일환으로 창씨개명 등이 강요되었다."
+  },
+  {
+    id: 30, subject: "역사상식", format: "현대", type: "mc",
+    stem: "광복절의 날짜는?",
+    choices: ["3월 1일", "6월 25일", "7월 27일", "8월 15일", "10월 3일"],
+    answer: 3, explain: "1945년 8월 15일 광복."
+  },
+  {
+    id: 31, subject: "역사상식", format: "현대", type: "mc",
+    stem: "대한민국 정부 수립일은?",
+    choices: ["1945.8.15", "1948.8.15", "1950.6.25", "1953.7.27", "1960.4.19"],
+    answer: 1, explain: "1948년 8월 15일 대한민국 정부가 수립되었다."
+  },
+  {
+    id: 32, subject: "역사상식", format: "현대", type: "mc",
+    stem: "6·25 전쟁 중 전세를 바꾼 인천상륙작전을 지휘한 인물은?",
+    choices: ["이승만", "김구", "맥아더", "박헌영", "장면"],
+    answer: 2, explain: "1950년 9월 맥아더가 지휘한 인천상륙작전."
+  },
+  {
+    id: 33, subject: "역사상식", format: "현대", type: "mc",
+    stem: "한국전쟁 정전협정이 체결된 해는?",
+    choices: ["1950년", "1951년", "1953년", "1960년", "1961년"],
+    answer: 2, explain: "1953년 7월 27일 정전협정이 체결되었다."
+  },
+  {
+    id: 34, subject: "역사상식", format: "현대", type: "mc",
+    stem: "4·19 혁명의 직접적 계기는?",
+    choices: ["한일협정", "3·15 부정선거", "유신헌법", "광주 민주화 운동", "IMF 위기"],
+    answer: 1, explain: "1960년 3·15 부정선거에 항의하여 4·19 혁명이 일어났다."
+  },
+  {
+    id: 35, subject: "역사상식", format: "세계사", type: "mc",
+    stem: "산업혁명이 가장 먼저 시작된 나라는?",
+    choices: ["프랑스", "독일", "미국", "영국", "일본"],
+    answer: 3, explain: "18세기 후반 영국에서 산업혁명이 시작되었다."
+  },
+  {
+    id: 36, subject: "역사상식", format: "세계사", type: "mc",
+    stem: "프랑스 혁명 시작 연도는?",
     choices: ["1688년", "1776년", "1789년", "1848년", "1917년"],
-    answer: 2,
-    explain: "프랑스 혁명은 1789년에 시작되었다."
+    answer: 2, explain: "1789년 프랑스 혁명이 시작되었다."
   },
   {
-    id: 13,
-    subject: "역사상식",
-    format: "순서배열",
-    type: "mc",
-    stem: "세계사 사건을 시간순으로 바르게 나열한 것은?\n(가) 제1차 세계대전 종전\n(나) 제2차 세계대전 종전\n(다) 산업혁명 시작(영국)",
-    choices: [
-      "(다)-(가)-(나)",
-      "(가)-(다)-(나)",
-      "(나)-(가)-(다)",
-      "(다)-(나)-(가)",
-      "(가)-(나)-(다)"
-    ],
-    answer: 0,
-    explain: "산업혁명(18C후반) → 1차대전 종전(1918) → 2차대전 종전(1945)."
+    id: 37, subject: "역사상식", format: "세계사", type: "mc",
+    stem: "제1차 세계대전이 끝난 해는?",
+    choices: ["1914년", "1917년", "1918년", "1939년", "1945년"],
+    answer: 2, explain: "1914년 시작, 1918년 종전."
   },
   {
-    id: 14,
-    subject: "역사상식",
-    format: "상황판단",
-    type: "mc",
-    stem: "냉전 시기 남·북한이 각각 가입한 군사 동맹/진영으로 바르게 짝지은 것은?",
-    choices: [
-      "남한–와르샤바 조약 / 북한–NATO",
-      "남한–자유 진영 / 북한–공산 진영",
-      "둘 다 비동맹만 유지",
-      "남한–소련 / 북한–미국",
-      "남한–중국 / 북한–일본"
-    ],
-    answer: 1,
-    explain: "냉전 시기 남한은 자유 진영, 북한은 공산 진영에 속했다."
-  },
-  {
-    id: 15,
-    subject: "역사상식",
-    format: "지문독해",
-    type: "mc",
-    stem: "윗글의 ‘그’에 해당하는 인물은?",
-    passage:
-      "그는 조선 후기 실학자로, 『목민심서』를 저술하여 지방관의 올바른 행정을 강조하였다.",
-    choices: ["이황", "이이", "정약용", "박지원", "최한기"],
-    answer: 2,
-    explain: "『목민심서』의 저자는 다산 정약용이다."
+    id: 38, subject: "역사상식", format: "세계사", type: "mc",
+    stem: "제2차 세계대전이 끝난 해는?",
+    choices: ["1918년", "1939년", "1941년", "1945년", "1950년"],
+    answer: 3, explain: "1939년 시작, 1945년 종전."
   },
 
-  // ===== 영어 16–28 =====
+  // ===== 영어 39–41 =====
   {
-    id: 16,
-    subject: "영어",
-    format: "어법",
-    type: "mc",
-    stem: "빈칸에 알맞은 것은? The book _____ on the table belongs to me.",
-    choices: ["lying", "lies", "lain", "laying", "lied"],
-    answer: 0,
-    explain: "‘놓여 있는’ 분사구/형용사적 용법 → lying."
+    id: 39, subject: "영어", format: "어휘", type: "mc",
+    stem: "History 관련 단어: \"independence\"의 뜻으로 알맞은 것은?",
+    choices: ["종속", "독립", "침략", "항복", "합병"],
+    answer: 1, explain: "independence = 독립."
   },
   {
-    id: 17,
-    subject: "영어",
-    format: "어휘",
-    type: "mc",
-    stem: "밑줄 친 부분과 의미가 가까운 것은? Please look into the problem carefully.",
-    choices: ["ignore", "investigate", "postpone", "celebrate", "translate"],
-    answer: 1,
-    explain: "look into = investigate(조사하다)."
+    id: 40, subject: "영어", format: "빈칸", type: "mc",
+    stem: "Korea was liberated _____ Japan in 1945.",
+    choices: ["for", "from", "by", "since", "during"],
+    answer: 1, explain: "liberated from ~ = ~로부터 해방되다."
   },
   {
-    id: 18,
-    subject: "영어",
-    format: "지문독해",
-    type: "mc",
-    stem: "글의 요지로 가장 알맞은 것은?",
-    passage:
-      "Recycling reduces waste and saves energy. When people sort paper, plastic, and glass, fewer raw materials are needed. Small daily habits can make a big difference.",
-    choices: [
-      "여행은 비싸다",
-      "재활용은 자원 절약에 도움이 된다",
-      "플라스틱은 모두 안전하다",
-      "에너지는 무한하다",
-      "유리만 분리수거하면 된다"
-    ],
-    answer: 1,
-    explain: "재활용이 폐기물·에너지를 줄인다는 요지."
-  },
-  {
-    id: 19,
-    subject: "영어",
-    format: "빈칸추론",
-    type: "mc",
-    stem: "빈칸에 들어갈 말로 알맞은 것은?",
-    passage:
-      "Although the weather was terrible, they _____ to climb the mountain.",
-    choices: ["gave up", "decided", "refused never", "were fail", "stop"],
-    answer: 1,
-    explain: "양보(Although) 뒤 ‘그럼에도 등반하기로 했다’ → decided가 자연스럽다."
-  },
-  {
-    id: 20,
-    subject: "영어",
-    format: "회화",
-    type: "mc",
-    stem: "A의 말에 대한 B의 응답으로 가장 적절한 것은?\nA: Could you tell me where the library is?\nB: _____",
-    choices: [
-      "Yes, I could library.",
-      "It's next to the cafeteria.",
-      "I am a library.",
-      "No, library is reading.",
-      "Where are you library?"
-    ],
-    answer: 1,
-    explain: "위치 안내에 대한 자연스러운 응답이다."
-  },
-  {
-    id: 21,
-    subject: "영어",
-    format: "어법",
-    type: "mc",
-    stem: "문법상 옳은 문장은?",
-    choices: [
-      "He suggested to go home.",
-      "She enjoys to swim.",
-      "They look forward to meeting you.",
-      "I avoid to talk loudly.",
-      "We finished to eat."
-    ],
-    answer: 2,
-    explain: "look forward to + V-ing가 올바른 용법이다."
-  },
-  {
-    id: 22,
-    subject: "영어",
-    format: "순서배열",
-    type: "mc",
-    stem: "글의 순서를 바르게 배열한 것은?\n(A) Then mix them well.\n(B) First, prepare the flour and eggs.\n(C) Finally, bake the mixture for 20 minutes.",
-    choices: ["(A)-(B)-(C)", "(B)-(A)-(C)", "(C)-(B)-(A)", "(B)-(C)-(A)", "(A)-(C)-(B)"],
-    answer: 1,
-    explain: "First → Then → Finally 순서: B-A-C."
-  },
-  {
-    id: 23,
-    subject: "영어",
-    format: "빈칸추론",
-    type: "mc",
-    stem: "She has been studying English _____ three years.",
-    choices: ["since", "for", "during", "while", "by"],
-    answer: 1,
-    explain: "기간(three years)에는 for를 쓴다."
-  },
-  {
-    id: 24,
-    subject: "영어",
-    format: "지문독해",
-    type: "mc",
-    stem: "밑줄 친 them이 가리키는 것은?",
-    passage:
-      "Scientists collected samples from the river. They tested them in the lab and found high levels of pollution.",
-    choices: ["scientists", "levels", "samples", "pollution", "lab"],
-    answer: 2,
-    explain: "them = samples(표본)."
-  },
-  {
-    id: 25,
-    subject: "영어",
-    format: "어휘",
-    type: "mc",
-    stem: "다음 중 나머지와 의미가 가장 다른 것은?",
-    choices: ["happy", "glad", "pleased", "delighted", "angry"],
-    answer: 4,
-    explain: "angry만 부정 감정, 나머지는 긍정적 기쁨."
-  },
-  {
-    id: 26,
-    subject: "영어",
-    format: "수동태",
-    type: "mc",
-    stem: "능동문을 수동으로 바르게 고친 것은? Someone stole my bike.",
-    choices: [
-      "My bike stole someone.",
-      "My bike was stolen.",
-      "My bike is stealing.",
-      "My bike were stolen.",
-      "My bike has steal."
-    ],
-    answer: 1,
-    explain: "과거 수동: was stolen."
-  },
-  {
-    id: 27,
-    subject: "영어",
-    format: "상황판단",
-    type: "mc",
-    stem: "친구에게 ‘약속 시간을 30분 늦추자’고 정중히 제안하는 말로 알맞은 것은?",
-    choices: [
-      "You late always!",
-      "Could we postpone our meeting by 30 minutes?",
-      "I hate you late.",
-      "Meeting is cancel forever.",
-      "Don't come."
-    ],
-    answer: 1,
-    explain: "Could we postpone ~?가 정중한 연기 제안이다."
-  },
-  {
-    id: 28,
-    subject: "영어",
-    format: "속담/표현",
-    type: "mc",
-    stem: "\"Practice makes perfect.\"의 의미로 가장 가까운 것은?",
-    choices: [
-      "재능만 있으면 충분하다",
-      "연습이 숙달을 만든다",
-      "완벽은 불가능하다",
-      "이론은 필요 없다",
-      "한 번에 성공해야 한다"
-    ],
-    answer: 1,
-    explain: "꾸준한 연습이 능숙함을 만든다는 뜻."
+    id: 41, subject: "영어", format: "독해", type: "mc",
+    stem: "글의 주제로 알맞은 것은?",
+    passage: "Learning timelines helps students remember historical events in order. Connecting dates with causes and results makes revision easier.",
+    choices: ["요리법", "연표·인과로 역사를 외우면 복습에 도움이 된다", "운동의 중요성", "수학 공식", "여행 계획"],
+    answer: 1, explain: "연표와 인과 연결이 역사 학습에 도움이 된다는 내용."
   },
 
-  // ===== 논리 29–40 =====
+  // ===== 논리 42–44 =====
   {
-    id: 29,
-    subject: "논리",
-    format: "삼단논법",
-    type: "mc",
-    stem: "모든 새는 알을 낳는다. 펭귄은 새이다. 결론으로 옳은 것은?",
-    choices: [
-      "펭귄은 날 수 있다",
-      "펭귄은 알을 낳는다",
-      "모든 알을 낳는 것은 펭귄이다",
-      "새는 펭귄이다",
-      "결론 없음"
-    ],
-    answer: 1,
-    explain: "새⊂알을낳음, 펭귄∈새 ⇒ 펭귄은 알을 낳는다."
+    id: 42, subject: "논리", format: "순서", type: "mc",
+    stem: "역사 사건 논리: A가 B보다 먼저이고, C가 A보다 먼저면?",
+    choices: ["B가 가장 먼저", "C가 가장 먼저", "A가 가장 먼저", "순서 알 수 없음", "B와 C가 동시"],
+    answer: 1, explain: "C → A → B 이므로 C가 가장 먼저."
   },
   {
-    id: 30,
-    subject: "논리",
-    format: "수열",
-    type: "mc",
-    stem: "2, 5, 11, 23, 47, … 다음에 올 수는?",
-    choices: ["71", "89", "94", "95", "101"],
-    answer: 3,
-    explain: "×2+1 규칙: 47×2+1=95."
+    id: 43, subject: "논리", format: "추론", type: "mc",
+    stem: "\"모든 조선 왕은 조선 시대 인물이다. 세종은 조선 왕이다.\" 결론은?",
+    choices: ["세종은 고려 왕이다", "세종은 조선 시대 인물이다", "모든 조선 시대 인물은 왕이다", "세종은 왕이 아니다", "결론 없음"],
+    answer: 1, explain: "삼단논법으로 세종은 조선 시대 인물이다."
   },
   {
-    id: 31,
-    subject: "논리",
-    format: "대우추론",
-    type: "mc",
-    stem: "\"공부를 하면 성적이 오른다. 성적이 오르지 않았다.\"에서 이끌어낼 수 있는 것은?",
-    choices: [
-      "공부를 했다",
-      "공부를 하지 않았다",
-      "성적은 반드시 떨어진다",
-      "공부와 무관하다",
-      "결론 없음"
-    ],
-    answer: 1,
-    explain: "대우: 성적이 오르지 않음 → 공부를 하지 않음. (단순화된 논리 문항)"
-  },
-  {
-    id: 32,
-    subject: "논리",
-    format: "자료해석",
-    type: "mc",
-    stem: "반 학생 30명 중 축구 좋아하는 학생 18명, 농구 좋아하는 학생 12명, 둘 다 좋아하는 학생 6명일 때, 축구만 좋아하는 학생 수는?",
-    choices: ["6", "12", "18", "24", "30"],
-    answer: 1,
-    explain: "축구만 = 18−6 = 12."
-  },
-  {
-    id: 33,
-    subject: "논리",
-    format: "유추",
-    type: "mc",
-    stem: "책 : 도서관 = 그림 : ?",
-    choices: ["화가", "미술관", "물감", "액자", "관객"],
-    answer: 1,
-    explain: "책이 모이는 장소가 도서관이듯, 그림이 모이는 장소는 미술관."
-  },
-  {
-    id: 34,
-    subject: "논리",
-    format: "참거짓",
-    type: "mc",
-    stem: "세 명 중 한 명만 진실을 말한다.\nA: \"내가 진실을 말한다.\"\nB: \"A가 거짓말한다.\"\nC: \"B가 거짓말한다.\"\n진실을 말하는 사람은?",
-    choices: ["A", "B", "C", "아무도 없음", "알 수 없다"],
-    answer: 1,
-    explain: "한 명만 참일 때 A가 참이면 B·C도 참이 되어 모순. C가 참이면 B는 거짓→A는 참이 되어 참이 둘. B가 참이면 A 거짓·C 거짓으로 일관된다."
-  },
-  {
-    id: 35,
-    subject: "논리",
-    format: "비교",
-    type: "mc",
-    stem: "키 순서: 영희 > 철수, 민수 > 영희, 철수 > 지영. 키가 가장 작은 사람은?",
-    choices: ["영희", "철수", "민수", "지영", "알 수 없다"],
-    answer: 3,
-    explain: "민수 > 영희 > 철수 > 지영."
-  },
-  {
-    id: 36,
-    subject: "논리",
-    format: "확률",
-    type: "mc",
-    stem: "동전을 두 번 던질 때, 앞면이 한 번만 나올 확률은?",
-    choices: ["1/4", "1/2", "1/3", "2/3", "3/4"],
-    answer: 1,
-    explain: "경우: HT, TH → 2/4 = 1/2."
-  },
-  {
-    id: 37,
-    subject: "논리",
-    format: "오류찾기",
-    type: "mc",
-    stem: "다음 중 ‘순환논증’에 해당하는 것은?",
-    choices: [
-      "그가 정직하다. 왜냐하면 그는 거짓말을 하지 않기 때문이다.",
-      "비가 오면 땅이 젖는다. 땅이 젖었으니 비가 왔다.",
-      "전문가도 틀릴 수 있다.",
-      "표본이 작아 일반화는 위험하다.",
-      "상관관계가 곧 인과는 아니다."
-    ],
-    answer: 0,
-    explain: "정직≈거짓말 안 함으로 같은 말을 반복 → 순환논증. (나)는 후건공정 오류."
-  },
-  {
-    id: 38,
-    subject: "논리",
-    format: "암호",
-    type: "mc",
-    stem: "규칙: 각 글자 위치값 합. CAT=24일 때, LION의 값은?",
-    choices: ["48", "50", "52", "54", "56"],
-    answer: 1,
-    explain: "L+I+O+N = 12+9+15+14 = 50."
-  },
-  {
-    id: 39,
-    subject: "논리",
-    format: "집합",
-    type: "mc",
-    stem: "전체 100명 중 안경 착용 40명, 렌즈 착용 25명, 둘 다 10명일 때, 안경도 렌즈도 안 쓴 사람은?",
-    choices: ["35", "45", "55", "65", "75"],
-    answer: 1,
-    explain: "합집합 = 40+25−10=55, 둘 다 안 씀 = 100−55=45."
-  },
-  {
-    id: 40,
-    subject: "논리",
-    format: "상황판단",
-    type: "mc",
-    stem: "버스는 10분마다 온다. 방금 버스를 놓쳤다면, 다음 버스까지 기다릴 최대 시간은?",
-    choices: ["0분", "5분", "10분", "15분", "20분"],
-    answer: 2,
-    explain: "방금 출발했다면 다음까지 최대 10분."
+    id: 44, subject: "논리", format: "자료", type: "mc",
+    stem: "연표에 사건 4개가 있다. 가운데 두 사건 사이 간격이 가장 길다면, ‘간격’의 의미로 알맞은 것은?",
+    choices: ["사건의 중요도", "두 사건 사이 시간 차이", "인물의 수", "장소의 거리", "사료의 분량"],
+    answer: 1, explain: "연표에서 간격은 보통 시간 차이를 뜻한다."
   },
 
-  // ===== 일반상식 41–44 =====
+  // ===== 일반상식 45–46 =====
   {
-    id: 41,
-    subject: "일반상식",
-    format: "시사·제도",
-    type: "mc",
-    stem: "대한민국 국무총리를 임명하는 권한을 가진 사람은?",
-    choices: ["국회의장", "대통령", "대법원장", "중앙선관위원장", "감사원장"],
-    answer: 1,
-    explain: "국무총리는 대통령이 국회의 동의를 얻어 임명한다."
+    id: 45, subject: "일반상식", format: "기념일", type: "mc",
+    stem: "한글날과 관련된 역사적 사건은?",
+    choices: ["임진왜란", "훈민정음 반포", "갑오개혁", "3·1 운동", "광복"],
+    answer: 1, explain: "한글날은 훈민정음 반포를 기념한다."
   },
   {
-    id: 42,
-    subject: "일반상식",
-    format: "경제",
-    type: "mc",
-    stem: "기준금리를 결정하는 우리나라 기관은?",
-    choices: ["기획재정부", "한국은행", "금융감독원", "공정거래위원회", "통계청"],
-    answer: 1,
-    explain: "한국은행 금융통화위원회가 기준금리를 결정한다."
-  },
-  {
-    id: 43,
-    subject: "일반상식",
-    format: "과학",
-    type: "mc",
-    stem: "물의 화학식과 상온·대기압에서 상태로 옳은 것은?",
-    choices: ["CO₂ – 고체", "H₂O – 액체", "O₂ – 액체", "NaCl – 기체", "H₂ – 고체"],
-    answer: 1,
-    explain: "물은 H₂O이며 상온·대기압에서 액체이다."
-  },
-  {
-    id: 44,
-    subject: "일반상식",
-    format: "지리",
-    type: "mc",
-    stem: "한반도에서 가장 높은 산은?",
-    choices: ["한라산", "지리산", "설악산", "백두산", "태백산"],
-    answer: 3,
-    explain: "백두산이 한반도 최고봉이다."
+    id: 46, subject: "일반상식", format: "문화재", type: "mc",
+    stem: "해인사의 팔만대장경판이 제작된 시대는?",
+    choices: ["신라", "발해", "고려", "조선", "대한제국"],
+    answer: 2, explain: "팔만대장경은 고려 시대에 조성되었다."
   },
 
-  // ===== 수리·물리 45–47 =====
+  // ===== 수리·물리 47–48 =====
   {
-    id: 45,
-    subject: "수리·물리",
-    format: "계산",
-    type: "mc",
-    stem: "함수 f(x)=3x−4일 때 f(5)의 값은?",
-    choices: ["7", "11", "15", "19", "23"],
-    answer: 1,
-    explain: "3×5−4=11."
+    id: 47, subject: "수리·물리", format: "계산", type: "mc",
+    stem: "1446년에서 1392년을 빼면? (조선 건국~훈민정음 반포 간격)",
+    choices: ["44년", "54년", "64년", "74년", "84년"],
+    answer: 1, explain: "1446−1392=54."
   },
   {
-    id: 46,
-    subject: "수리·물리",
-    format: "물리",
-    type: "mc",
-    stem: "자유 낙하(공기저항 무시)에서 질량이 다른 두 물체를 같은 높이에서 동시에 놓으면?",
-    choices: [
-      "무거운 쪽이 먼저 떨어진다",
-      "가벼운 쪽이 먼저 떨어진다",
-      "동시에 떨어진다",
-      "질량비만큼 시간 차이가 난다",
-      "예측할 수 없다"
-    ],
-    answer: 2,
-    explain: "이상적 조건에서 낙하 가속도는 질량과 무관하여 동시에 떨어진다."
-  },
-  {
-    id: 47,
-    subject: "수리·물리",
-    format: "확률",
-    type: "mc",
-    stem: "주사위를 한 번 던져 짝수가 나올 확률은?",
-    choices: ["1/6", "1/3", "1/2", "2/3", "5/6"],
-    answer: 2,
-    explain: "2,4,6 → 3/6=1/2."
+    id: 48, subject: "수리·물리", format: "계산", type: "mc",
+    stem: "1919년은 1910년으로부터 몇 년 후인가?",
+    choices: ["5년", "7년", "9년", "11년", "15년"],
+    answer: 2, explain: "1919−1910=9."
   },
 
-  // ===== 의사소통 48–50 =====
+  // ===== 의사소통 49–50 =====
   {
-    id: 48,
-    subject: "의사소통",
-    format: "요약",
-    type: "mc",
-    stem: "다음 글의 핵심을 한 문장으로 요약한 것으로 가장 적절한 것은?",
-    passage:
-      "회의에서는 안건을 미리 공유하고, 발언 시간을 지키며, 결정 사항을 기록하는 것이 중요하다. 이렇게 하면 논의가 산만해지지 않고 실행으로 이어지기 쉽다.",
+    id: 49, subject: "의사소통", format: "요약", type: "mc",
+    stem: "다음 중 역사 학습 노트의 좋은 요약 문장은?",
     choices: [
-      "회의는 필요 없다",
-      "효율적 회의를 위해 사전 공유·시간 관리·기록이 필요하다",
-      "기록만 하면 충분하다",
-      "발언은 길수록 좋다",
-      "안건은 숨기는 편이 낫다"
+      "역사는 그냥 어렵다.",
+      "임진왜란(1592)은 일본의 침입으로 시작되었고, 이순신 등의 활약과 의병 저항이 이어졌다.",
+      "예전에 전쟁이 있었다.",
+      "왕이 뭔가 했다.",
+      "외우기 싫다."
     ],
-    answer: 1,
-    explain: "사전 공유·시간·기록이 핵심이다."
+    answer: 1, explain: "연도·주체·핵심 전개가 담긴 요약이 좋다."
   },
   {
-    id: 49,
-    subject: "의사소통",
-    format: "상황판단",
-    type: "mc",
-    stem: "팀 프로젝트에서 동료의 실수로 마감이 늦어질 위기다. 가장 바람직한 대응은?",
+    id: 50, subject: "의사소통", format: "암기팁", type: "mc",
+    stem: "역사 연도를 외울 때 가장 효과적인 방법은?",
     choices: [
-      "공개적으로 비난한다",
-      "문제를 숨기고 넘긴다",
-      "사실 확인 후 함께 일정·역할을 재조정한다",
-      "혼자 전부 떠맡으며 불만을 쌓는다",
-      "즉시 팀에서 퇴출을 요구한다"
+      "아무 숫자나 반복만 한다",
+      "사건·인과·키워드와 묶어 연표로 외운다",
+      "시험 직전에만 한 번 본다",
+      "인물 이름은 무시한다",
+      "세계사는 전혀 보지 않는다"
     ],
-    answer: 2,
-    explain: "비난보다 문제 파악과 일정·역할 조정이 생산적이다."
-  },
-  {
-    id: 50,
-    subject: "의사소통",
-    format: "문장다듬기",
-    type: "mc",
-    stem: "다음 중 객관적이고 명확한 문장은?",
-    choices: [
-      "그 사람은 완전 최악임.",
-      "설문 응답자 120명 중 78명(65%)이 찬성했다.",
-      "다들 그렇게 생각한다.",
-      "대충 보면 알 수 있다.",
-      "무조건 맞다."
-    ],
-    answer: 1,
-    explain: "수치·비율이 제시되어 검증 가능한 객관적 진술이다."
+    answer: 1, explain: "연도만 외우기보다 사건·인과와 연결한 연표 학습이 효과적이다."
   }
 ];
