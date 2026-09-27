@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>역사 암기 자료 · NCS CBT</title>
+  <title>한국사 인물 암기 카드</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Outfit:wght@600;800&display=swap" rel="stylesheet" />
@@ -17,130 +17,56 @@
     <div class="brand">
       <span class="brand-mark">史</span>
       <div class="brand-text">
-        <strong>역사 암기 노트</strong>
-        <span>고등학교 · 한국사 핵심 + 세계사 포인트</span>
+        <strong>인물 암기 카드</strong>
+        <span>업적 중심 · 연도 최소화</span>
       </div>
     </div>
     <div class="top-meta" style="display:flex;gap:.6rem;flex-wrap:wrap">
       <a class="btn ghost" href="quiz.html">CBT 풀기</a>
-      <a class="btn primary" href="index.html">시험 홈</a>
+      <a class="btn primary" href="index.html">홈</a>
     </div>
   </header>
 
   <main class="study-main">
     <section class="panel">
-      <p class="eyebrow">Memorization Pack</p>
-      <h1>역사에 약한 분을 위한<br />핵심 암기 자료</h1>
-      <p class="lead">연표 → 인물 → 사건 키워드 순으로 외우세요. 카드를 눌러 답을 확인합니다.</p>
+      <p class="eyebrow">People First</p>
+      <h1>누가, 무엇을 했는가</h1>
+      <p class="lead">카드를 탭하면 업적이 나옵니다. 연도보다 역할·성과를 먼저 잡으세요.</p>
       <nav class="study-toc">
-        <a href="#timeline">필수 연표</a>
-        <a href="#people">인물</a>
-        <a href="#events">사건 키워드</a>
-        <a href="#world">세계사</a>
-        <a href="#mnemonics">암기 팁</a>
-        <a href="#drill">자가 점검</a>
+        <a href="#ancient">고대·남북국</a>
+        <a href="#goryeo">고려</a>
+        <a href="#joseon">조선</a>
+        <a href="#modern">근현대</a>
+        <a href="#match">짝맞추기</a>
       </nav>
     </section>
 
-    <section class="panel" id="timeline">
-      <h2>1. 필수 연표 (한국사)</h2>
-      <p class="section-lead">숫자만 외우지 말고 “앞뒤 사건”과 묶어서 외우세요.</p>
-      <div class="timeline">
-        <article><b>B.C. 2333 설</b><span>고조선 건국 설화 (단군왕검)</span></article>
-        <article><b>B.C. 37</b><span>고구려 건국 (주몽)</span></article>
-        <article><b>B.C. 18</b><span>백제 건국 (온조)</span></article>
-        <article><b>B.C. 57 설</b><span>신라 건국 (박혁거세)</span></article>
-        <article><b>660</b><span>백제 멸망</span></article>
-        <article><b>668</b><span>고구려 멸망 → 신라 삼국통일 과정</span></article>
-        <article><b>698</b><span>발해 건국 (대조영)</span></article>
-        <article><b>918</b><span>고려 건국 (왕건)</span></article>
-        <article><b>1170</b><span>무신정변</span></article>
-        <article><b>1392</b><span>조선 건국 (이성계)</span></article>
-        <article><b>1446</b><span>훈민정음 반포</span></article>
-        <article><b>1592</b><span>임진왜란</span></article>
-        <article><b>1636</b><span>병자호란</span></article>
-        <article><b>1876</b><span>강화도 조약 (개항)</span></article>
-        <article><b>1884</b><span>갑신정변</span></article>
-        <article><b>1894</b><span>동학농민운동 · 갑오개혁</span></article>
-        <article><b>1905</b><span>을사늑약 (외교권 박탈)</span></article>
-        <article><b>1910</b><span>강제병합</span></article>
-        <article><b>1919</b><span>3·1 운동 · 임시정부</span></article>
-        <article><b>1945.8.15</b><span>광복</span></article>
-        <article><b>1948.8.15</b><span>대한민국 정부 수립</span></article>
-        <article><b>1950.6.25</b><span>한국전쟁 발발</span></article>
-        <article><b>1953.7.27</b><span>정전협정</span></article>
-        <article><b>1960.4.19</b><span>4·19 혁명</span></article>
-      </div>
+    <section class="panel" id="ancient">
+      <h2>고대 · 남북국</h2>
+      <div class="cards" data-pack="ancient"></div>
+    </section>
+    <section class="panel" id="goryeo">
+      <h2>고려</h2>
+      <div class="cards" data-pack="goryeo"></div>
+    </section>
+    <section class="panel" id="joseon">
+      <h2>조선</h2>
+      <div class="cards" data-pack="joseon"></div>
+    </section>
+    <section class="panel" id="modern">
+      <h2>근현대 · 독립운동</h2>
+      <div class="cards" data-pack="modern"></div>
     </section>
 
-    <section class="panel" id="people">
-      <h2>2. 인물 ↔ 키워드</h2>
-      <p class="section-lead">카드를 눌러 정답을 확인하세요.</p>
-      <div class="cards" id="peopleCards"></div>
-    </section>
-
-    <section class="panel" id="events">
-      <h2>3. 사건 한 줄 정리</h2>
-      <div class="kv-table" id="eventTable"></div>
-    </section>
-
-    <section class="panel" id="world">
-      <h2>4. 세계사 포인트</h2>
-      <div class="timeline compact">
-        <article><b>1789</b><span>프랑스 혁명</span></article>
-        <article><b>18C 후반</b><span>영국 산업혁명 시작</span></article>
-        <article><b>1914–1918</b><span>제1차 세계대전</span></article>
-        <article><b>1939–1945</b><span>제2차 세계대전</span></article>
-        <article><b>1945</b><span>UN 창설 · 한반도 광복</span></article>
-      </div>
-      <ul class="bullet-list">
-        <li><b>산업혁명</b> = 영국 먼저 → 기계·공장·도시화</li>
-        <li><b>프랑스 혁명</b> = 자유·평등·시민 권리 확산의 상징</li>
-        <li><b>1차대전 후</b> = 베르사유 조약 → 독일 배상·군비 제한</li>
-        <li><b>2차대전 후</b> = 냉전 (자유 진영 vs 공산 진영)</li>
-      </ul>
-    </section>
-
-    <section class="panel" id="mnemonics">
-      <h2>5. 암기 팁 · 말장난</h2>
-      <div class="tips">
-        <article>
-          <h3>개항기 흐름</h3>
-          <p><b>개·갑·동갑·을·합</b><br />개항(1876) → 갑신(1884) → 동학·갑오(1894) → 을사(1905) → 합병(1910)</p>
-        </article>
-        <article>
-          <h3>임진 / 병자</h3>
-          <p><b>임진=일본, 병자=청</b><br />1592 왜란(일본), 1636 호란(청)</p>
-        </article>
-        <article>
-          <h3>광복 vs 정부수립</h3>
-          <p><b>45 광복 · 48 정부</b><br />둘 다 8월 15일! 연도만 다름</p>
-        </article>
-        <article>
-          <h3>삼국 멸망</h3>
-          <p><b>60 백제, 68 고구려</b><br />660 → 668 (8년 차이)</p>
-        </article>
-        <article>
-          <h3>고려·조선 건국</h3>
-          <p><b>왕건 918 / 이성계 1392</b><br />“구일팔 고려, 일삼구이 조선”</p>
-        </article>
-        <article>
-          <h3>훈민정음</h3>
-          <p><b>창제 43 · 반포 46</b><br />1443 창제, 1446 반포</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="panel" id="drill">
-      <h2>6. 자가 점검 (빈칸)</h2>
-      <p class="section-lead">입력 후 확인을 누르세요. 대소문자·띄어쓰기는 무시합니다.</p>
-      <div id="drillBox" class="drill-box"></div>
+    <section class="panel" id="match">
+      <h2>빠른 짝맞추기</h2>
+      <p class="section-lead">업적을 보고 인물을 고르세요. (즉시 채점)</p>
+      <div id="matchBox" class="match-box"></div>
       <div class="cta-row" style="margin-top:1rem">
-        <button type="button" class="btn primary" id="checkDrill">점검 채점</button>
-        <button type="button" class="btn ghost" id="resetDrill">다시</button>
-        <a class="btn secondary" href="quiz.html">역사 집중 CBT 풀기</a>
+        <button type="button" class="btn primary" id="reshuffleMatch">다시 섞기</button>
+        <a class="btn secondary" href="quiz.html">인물 CBT 풀기</a>
       </div>
-      <p class="hint" id="drillResult"></p>
+      <p class="hint" id="matchScore"></p>
     </section>
   </main>
 

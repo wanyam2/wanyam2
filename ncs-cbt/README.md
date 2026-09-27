@@ -1,8 +1,8 @@
-# NCS 고등학교 CBT · Set 4 (역사 집중)
+# 한국사 인물 집중 CBT (Set 5)
 
+- 역사만 40문항 · 인물·활약 중심 · 연도/타과목 없음
 - CBT: `index.html` / `quiz.html`
-- 역사 암기 자료: `study.html` / `study-bundle.html`
-- 배분: 역사 38 · 영어 3 · 논리 3 · 일반상식 2 · 수리·물리 2 · 의사소통 2
+- 인물 카드: `study.html` / `study-bundle.html`
 
 ```bash
 cd ncs-cbt && python3 -m http.server 8080

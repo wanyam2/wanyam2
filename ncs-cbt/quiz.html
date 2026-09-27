@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NCS 고등학교 CBT · Set 4 역사 집중</title>
+  <title>한국사 인물 집중 · CBT</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet" />
@@ -543,16 +543,16 @@ a.btn {
 
   <header class="topbar">
     <div class="brand">
-      <span class="brand-mark">NCS</span>
+      <span class="brand-mark">史</span>
       <div class="brand-text">
-        <strong>고등학교 CBT</strong>
-        <span>Set 4 · 역사 집중 + 암기 자료</span>
+        <strong>한국사 인물 CBT</strong>
+        <span>활약상 중심 · 역사만 · 빠른 학습</span>
       </div>
     </div>
     <div class="top-meta" id="topMeta" hidden>
-      <div class="timer" id="timer" aria-live="polite">60:00</div>
+      <div class="timer" id="timer" aria-live="polite">30:00</div>
       <div class="progress-wrap">
-        <div class="progress-label"><span id="answeredCount">0</span> / 50</div>
+        <div class="progress-label"><span id="answeredCount">0</span> / <span id="totalCount">40</span></div>
         <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
       </div>
     </div>
@@ -560,30 +560,30 @@ a.btn {
 
   <main>
     <section class="panel start-panel" id="startPanel">
-      <p class="eyebrow">Computer Based Test · Set 4</p>
-      <h1>NCS 형식<br />역사 집중 퀴즈</h1>
-      <p class="lead">총 50문항 · 역사 38문항 · 전부 객관식 · 즉시 채점</p>
+      <p class="eyebrow">History Only · Set 5</p>
+      <h1>인물과 활약으로<br />한국사 빠르게</h1>
+      <p class="lead">역사 40문항 · 연도 암기 없음 · 타과목 없음 · 즉시 채점</p>
 
       <div class="focus-banner" id="focusBanner"></div>
 
-      <ul class="subject-grid" aria-label="과목 구성">
-        <li class="hot"><b>역사상식</b><span>38문항 · 최집중</span></li>
-        <li><b>영어</b><span>3문항</span></li>
-        <li><b>논리</b><span>3문항</span></li>
-        <li><b>일반상식</b><span>2문항</span></li>
-        <li><b>수리·물리</b><span>2문항</span></li>
-        <li><b>의사소통</b><span>2문항</span></li>
+      <ul class="subject-grid" aria-label="학습 범위">
+        <li class="hot"><b>인물·활약</b><span>누가 무엇을 했는가</span></li>
+        <li class="hot"><b>사료·저술</b><span>대표 저작과 업적</span></li>
+        <li class="hot"><b>독립운동</b><span>의거·전투·지도자</span></li>
+        <li><b>제외</b><span>연도 퀴즈</span></li>
+        <li><b>제외</b><span>수리·영어 혼합</span></li>
+        <li><b>제외</b><span>이전 세트 중복</span></li>
       </ul>
 
       <div class="cta-row">
-        <button type="button" class="btn primary" id="startBtn">시험 시작</button>
-        <a class="btn secondary" href="study.html">역사 암기 자료</a>
+        <button type="button" class="btn primary" id="startBtn">바로 풀기</button>
+        <a class="btn secondary" href="study.html">인물 암기 카드</a>
         <label class="check-inline">
           <input type="checkbox" id="timerToggle" checked />
-          60분 타이머
+          30분 타이머
         </label>
       </div>
-      <p class="hint">먼저 <b>암기 자료</b>로 연표를 보고 오시거나, 바로 풀어보고 오답을 복습하세요.</p>
+      <p class="hint">추천: 인물 카드를 2분만 보고 → 문제 풀기 → 틀린 인물만 다시 보기</p>
     </section>
 
     <section class="panel quiz-panel" id="quizPanel" hidden>
@@ -591,7 +591,7 @@ a.btn {
         <aside class="nav-pane" aria-label="문항 번호">
           <div class="nav-head">문항</div>
           <div class="nav-grid" id="navGrid"></div>
-          <button type="button" class="btn ghost full" id="submitAllBtn">전체 제출 · 결과</button>
+          <button type="button" class="btn ghost full" id="submitAllBtn">제출 · 결과</button>
         </aside>
 
         <div class="question-pane">
@@ -620,360 +620,288 @@ a.btn {
       <div class="score-ring-wrap">
         <div class="score-ring" id="scoreRing">
           <strong id="scorePct">0%</strong>
-          <span id="scoreFrac">0 / 50</span>
+          <span id="scoreFrac">0 / 40</span>
         </div>
       </div>
       <div class="weakness-box" id="weaknessBox"></div>
       <div class="subject-scores" id="subjectScores"></div>
       <div class="cta-row">
-        <button type="button" class="btn primary" id="reviewBtn">오답·해설 다시보기</button>
-        <a class="btn secondary" href="study.html">암기 자료로 복습</a>
+        <button type="button" class="btn primary" id="reviewBtn">오답만 다시보기</button>
+        <a class="btn secondary" href="study.html">인물 카드 복습</a>
         <button type="button" class="btn ghost" id="restartBtn">다시 풀기</button>
       </div>
     </section>
   </main>
 
   <script>
-/* NCS CBT Set 4 — History-heavy (고등 수준)
-   역사상식 38 · 영어 3 · 논리 3 · 일반상식 2 · 수리·물리 2 · 의사소통 2 */
+/* History-only Set 5 — 인물·활약 중심 (연도 암기/타과목 제외) */
 window.NCS_META = {
-  version: 4,
+  version: 5,
   focus: ["역사상식"],
   focusNote:
-    "역사 약점 집중 세트입니다. 한국사·세계사 핵심을 중심으로 출제했고, 암기 자료(study.html)와 함께 복습하세요."
+    "역사만 40문항입니다. 연도·지엽 사실보다 ‘누가 무엇을 했는가’를 묻습니다. 이전 세트와 문항을 새로 짰습니다."
 };
 
 window.NCS_QUESTIONS = [
-  // ===== 역사상식 1–38 =====
   {
-    id: 1, subject: "역사상식", format: "고대", type: "mc",
-    stem: "고조선의 건국 설화와 관련된 인물은?",
-    choices: ["주몽", "온조", "단군왕검", "박혁거세", "대조영"],
-    answer: 2, explain: "단군왕검이 고조선을 세웠다는 건국 설화가 전한다."
+    id: 1, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "수군을 지휘해 한산도 대첩 등에서 왜군을 막아낸 장수는?",
+    choices: ["권율", "곽재우", "이순신", "김시민", "원균"],
+    answer: 2, explain: "이순신이 조선 수군을 이끌며 주요 해전에서 활약했다."
   },
   {
-    id: 2, subject: "역사상식", format: "고대", type: "mc",
-    stem: "고구려를 건국한 인물은?",
-    choices: ["온조", "주몽", "김수로", "왕건", "이성계"],
+    id: 2, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "백성을 위해 글을 쉽게 익히도록 훈민정음 창제를 주도한 왕은?",
+    choices: ["태조", "태종", "세종", "세조", "성종"],
+    answer: 2, explain: "세종이 훈민정음 창제를 주도했다."
+  },
+  {
+    id: 3, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "후삼국을 통일하고 고려를 세워 호족을 포용한 정책을 펼친 인물은?",
+    choices: ["궁예", "견훤", "왕건", "대조영", "이성계"],
+    answer: 2, explain: "왕건이 고려를 건국하고 호족 통합에 힘썼다."
+  },
+  {
+    id: 4, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "위화도 회군 이후 조선을 건국한 인물은?",
+    choices: ["최영", "정몽주", "이성계", "정도전", "이방원"],
+    answer: 2, explain: "이성계가 위화도 회군 뒤 조선을 세웠다. 정도전 등은 건국 이념을 뒷받침했다."
+  },
+  {
+    id: 5, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "조선의 통치 규범을 정리한 『경국대전』 완성에 힘을 기울인 시기의 왕으로 알맞은 것은?",
+    choices: ["연산군", "성종", "광해군", "인조", "철종"],
+    answer: 1, explain: "세조 대에 편찬이 추진되고 성종 때 『경국대전』이 완성·반포되었다."
+  },
+  {
+    id: 6, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "지방관의 올바른 행정을 강조한 『목민심서』를 쓴 실학자는?",
+    choices: ["이황", "이이", "정약용", "박지원", "유형원"],
+    answer: 2, explain: "다산 정약용이 『목민심서』 등을 저술했다."
+  },
+  {
+    id: 7, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "청에 다녀온 견문을 기록한 『열하일기』의 저자는?",
+    choices: ["박제가", "박지원", "홍대용", "정약용", "김정희"],
+    answer: 1, explain: "연암 박지원이 『열하일기』를 남겼다."
+  },
+  {
+    id: 8, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "과거제를 도입하고 노비안검법으로 왕권을 강화한 고려의 왕은?",
+    choices: ["태조", "광종", "성종", "예종", "공민왕"],
+    answer: 1, explain: "광종이 과거제·노비안검법 등으로 왕권을 강화했다."
+  },
+  {
+    id: 9, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "최승로의 시무 28조를 받아들여 유교적 통치 질서를 정비한 고려의 왕은?",
+    choices: ["광종", "성종", "숙종", "의종", "원종"],
+    answer: 1, explain: "성종이 최승로의 건의를 수용하며 유교 정치를 강화했다."
+  },
+  {
+    id: 10, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "『삼국사기』를 편찬한 인물은?",
+    choices: ["일연", "김부식", "이규보", "최치원", "정인지"],
+    answer: 1, explain: "김부식이 『삼국사기』를 편찬했다. 일연은 『삼국유사』."
+  },
+  {
+    id: 11, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "불교 설화와 민간 전승을 담은 『삼국유사』를 남긴 인물은?",
+    choices: ["김부식", "일연", "원효", "의상", "도선"],
+    answer: 1, explain: "일연이 『삼국유사』를 저술했다."
+  },
+  {
+    id: 12, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "고구려를 세우고 졸본 지역을 기반으로 나라를 연 인물은?",
+    choices: ["온조", "주몽", "박혁거세", "김수로", "대조영"],
     answer: 1, explain: "주몽(동명성왕)이 고구려를 건국했다."
   },
   {
-    id: 3, subject: "역사상식", format: "고대", type: "mc",
-    stem: "백제를 건국한 인물은?",
-    choices: ["온조", "근초고왕", "성왕", "의자왕", "계백"],
-    answer: 0, explain: "온조왕이 백제를 건국했다."
+    id: 13, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "백제를 세운 인물은?",
+    choices: ["근초고왕", "온조", "성왕", "의자왕", "계백"],
+    answer: 1, explain: "온조가 백제를 건국했다."
   },
   {
-    id: 4, subject: "역사상식", format: "고대", type: "mc",
-    stem: "신라 화랑도와 불교 공인을 추진한 왕으로 알려진 인물은?",
-    choices: ["진흥왕", "법흥왕", "무열왕", "문무왕", "신문왕"],
-    answer: 1, explain: "법흥왕 때 불교가 공인되었다. (화랑도는 진흥왕 대에 정비·활성화)"
-  },
-  {
-    id: 5, subject: "역사상식", format: "사실확인", type: "mc",
-    stem: "신라가 삼국을 통일하는 과정에서 먼저 멸망한 나라는?",
-    choices: ["고구려", "백제", "발해", "가야", "탐라"],
-    answer: 1, explain: "660년 백제 멸망 → 668년 고구려 멸망 순이다."
-  },
-  {
-    id: 6, subject: "역사상식", format: "남북국", type: "mc",
-    stem: "발해를 건국한 인물과 연도로 옳은 것은?",
-    choices: ["대조영 – 698년", "왕건 – 918년", "궁예 – 901년", "견훤 – 900년", "문무왕 – 668년"],
-    answer: 0, explain: "대조영이 698년 발해를 건국했다."
-  },
-  {
-    id: 7, subject: "역사상식", format: "고려", type: "mc",
-    stem: "고려를 건국한 인물은?",
-    choices: ["이성계", "왕건", "궁예", "묘청", "최충헌"],
-    answer: 1, explain: "왕건이 918년 고려를 건국했다."
-  },
-  {
-    id: 8, subject: "역사상식", format: "고려", type: "mc",
-    stem: "고려 광종이 실시한 제도로 옳은 것은?",
-    choices: ["대동법", "과거제", "균역법", "영정법", "직전법"],
-    answer: 1, explain: "광종이 과거제를 도입하고 노비안검법 등으로 왕권을 강화했다."
-  },
-  {
-    id: 9, subject: "역사상식", format: "고려", type: "mc",
-    stem: "고려 무신정변이 일어난 왕 때는?",
-    choices: ["광종", "성종", "의종", "공민왕", "충렬왕"],
-    answer: 2, explain: "1170년 의종 때 무신정변이 일어났다."
-  },
-  {
-    id: 10, subject: "역사상식", format: "고려", type: "mc",
-    stem: "팔만대장경이 제작된 주요 배경은?",
-    choices: ["왜구 격퇴", "몽골 침입에 대한 염원", "임진왜란", "병자호란", "갑오개혁"],
-    answer: 1, explain: "몽골 침입 시기 부처의 힘으로 국난을 극복하려는 염원에서 조성되었다."
-  },
-  {
-    id: 11, subject: "역사상식", format: "조선", type: "mc",
-    stem: "조선 건국 연도와 건국자는?",
-    choices: ["918년 왕건", "1392년 이성계", "1446년 세종", "1592년 선조", "1636년 인조"],
-    answer: 1, explain: "이성계가 1392년 조선을 건국했다."
-  },
-  {
-    id: 12, subject: "역사상식", format: "조선", type: "mc",
-    stem: "훈민정음 반포 연도는?",
-    choices: ["1392년", "1418년", "1443년", "1446년", "1455년"],
-    answer: 3, explain: "1443년 창제, 1446년 반포."
-  },
-  {
-    id: 13, subject: "역사상식", format: "조선", type: "mc",
-    stem: "『경국대전』 편찬과 관련된 시기로 알맞은 것은?",
-    choices: ["태조", "세종", "세조~성종", "연산군", "영조"],
-    answer: 2, explain: "세조 때 편찬이 추진되고 성종 때 완성·반포되었다."
-  },
-  {
-    id: 14, subject: "역사상식", format: "조선", type: "mc",
-    stem: "임진왜란 발발 연도는?",
-    choices: ["1446년", "1592년", "1636년", "1876년", "1894년"],
-    answer: 1, explain: "1592년(선조 25)에 임진왜란이 일어났다."
-  },
-  {
-    id: 15, subject: "역사상식", format: "조선", type: "mc",
-    stem: "임진왜란 때 수군으로 큰 전과를 올린 장수는?",
-    choices: ["곽재우", "이순신", "권율", "김시민", "유성룡"],
-    answer: 1, explain: "이순신 장군이 한산도 대첩 등에서 활약했다."
-  },
-  {
-    id: 16, subject: "역사상식", format: "조선", type: "mc",
-    stem: "병자호란의 상대국(침략 세력)은?",
-    choices: ["일본", "명", "청", "러시아", "몽골"],
-    answer: 2, explain: "1636년 청의 침입으로 병자호란이 일어났다."
-  },
-  {
-    id: 17, subject: "역사상식", format: "조선", type: "mc",
-    stem: "실학자 정약용의 대표 저서로 알맞은 것은?",
-    choices: ["택리지", "열하일기", "목민심서", "세종실록", "동국통감"],
-    answer: 2, explain: "다산 정약용의 대표작으로 『목민심서』 등이 있다."
-  },
-  {
-    id: 18, subject: "역사상식", format: "순서배열", type: "mc",
-    stem: "다음을 시간순으로 배열한 것은?\n(가) 병자호란\n(나) 임진왜란\n(다) 조선 건국\n(라) 훈민정음 반포",
+    id: 14, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "고구려 전성기를 이끌며 광개토왕릉비로도 잘 알려진 왕의 업적으로 알맞은 것은?",
     choices: [
-      "(다)-(라)-(나)-(가)",
-      "(라)-(다)-(나)-(가)",
-      "(다)-(나)-(라)-(가)",
-      "(나)-(가)-(다)-(라)",
-      "(다)-(라)-(가)-(나)"
+      "훈민정음 창제",
+      "영토 확장과 주변 세력 정벌",
+      "과거제 도입",
+      "갑오개혁 단행",
+      "임시정부 수립"
     ],
-    answer: 0,
-    explain: "건국(1392)→훈민정음 반포(1446)→임진왜란(1592)→병자호란(1636)."
+    answer: 1, explain: "광개토왕은 정복 사업으로 고구려 세력을 크게 넓혔다."
   },
   {
-    id: 19, subject: "역사상식", format: "개항기", type: "mc",
-    stem: "강화도 조약(조일수호조규)이 체결된 해는?",
-    choices: ["1860년", "1876년", "1884년", "1894년", "1905년"],
-    answer: 1, explain: "1876년 강화도 조약으로 조선이 개항했다."
+    id: 15, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "나당 연합으로 백제를 공격하는 과정에서 황산벌에서 결사한 백제 장군은?",
+    choices: ["성충", "흥수", "계백", "의자왕", "복신"],
+    answer: 2, explain: "계백이 황산벌에서 신라군에 맞섰다."
   },
   {
-    id: 20, subject: "역사상식", format: "개항기", type: "mc",
-    stem: "갑신정변을 일으킨 세력은?",
-    choices: ["위정척사파", "급진 개화파", "동학교도", "의병", "대원군"],
-    answer: 1, explain: "김옥균 등 급진 개화파가 1884년 갑신정변을 일으켰다."
+    id: 16, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "고구려 유민을 모아 발해를 세운 인물은?",
+    choices: ["대조영", "걸걸중상", "문왕", "선왕", "대무예"],
+    answer: 0, explain: "대조영이 발해를 건국했다."
   },
   {
-    id: 21, subject: "역사상식", format: "개항기", type: "mc",
-    stem: "동학농민운동이 일어난 해는?",
-    choices: ["1882년", "1884년", "1894년", "1905년", "1910년"],
-    answer: 2, explain: "1894년 동학농민운동이 일어났다."
+    id: 17, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "임진왜란 때 의병장으로 활약한 ‘홍의장군’으로 불린 인물은?",
+    choices: ["이순신", "권율", "곽재우", "신립", "송상현"],
+    answer: 2, explain: "곽재우가 홍의장군으로 불리며 의병을 이끌었다."
   },
   {
-    id: 22, subject: "역사상식", format: "개항기", type: "mc",
-    stem: "갑오개혁이 추진된 시기는?",
-    choices: ["임진왜란 직후", "병자호란 직후", "1894년 전후", "3·1 운동 직후", "광복 직후"],
-    answer: 2, explain: "1894년 전후 갑오개혁이 추진되었다."
+    id: 18, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "행주산성에서 왜군을 크게 물리친 조선 장수는?",
+    choices: ["이순신", "권율", "원균", "이억기", "정문부"],
+    answer: 1, explain: "권율이 행주대첩을 이끌었다."
   },
   {
-    id: 23, subject: "역사상식", format: "개항기", type: "mc",
-    stem: "을사늑약(1905)으로 대한제국이 잃은 권리는?",
-    choices: ["사법권", "외교권", "교육권", "토지권", "참정권"],
-    answer: 1, explain: "을사늑약으로 외교권이 박탈되고 통감부가 설치되었다."
+    id: 19, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "대동법 시행을 주장·추진하며 방납의 폐단을 줄이려 한 인물로 알맞은 것은?",
+    choices: ["이완", "김육", "송시열", "허목", "윤휴"],
+    answer: 1, explain: "김육이 대동법 확대 시행에 힘을 쏟았다."
   },
   {
-    id: 24, subject: "역사상식", format: "개항기", type: "mc",
-    stem: "한일 강제병합이 이루어진 해는?",
-    choices: ["1905년", "1907년", "1910년", "1919년", "1945년"],
-    answer: 2, explain: "1910년 강제병합으로 대한제국이 국권을 상실했다."
+    id: 20, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "균역법으로 군포 부담을 줄이려 한 조선의 왕은?",
+    choices: ["숙종", "영조", "정조", "순조", "고종"],
+    answer: 1, explain: "영조가 균역법을 시행했다."
   },
   {
-    id: 25, subject: "역사상식", format: "일제강점기", type: "mc",
-    stem: "1910년대 일제 통치 방식으로 알맞은 것은?",
-    choices: ["문화 통치", "무단 통치", "신탁통치", "군정 철폐", "지방자치"],
-    answer: 1, explain: "1910년대는 헌병 경찰 중심의 무단 통치기이다."
+    id: 21, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "규장각을 두고 문물을 정비하며 탕평에 힘쓴 조선 후기 왕은?",
+    choices: ["영조", "정조", "순조", "헌종", "철종"],
+    answer: 1, explain: "정조는 규장각을 중심으로 문예·정치 쇄신을 꾀했다."
   },
   {
-    id: 26, subject: "역사상식", format: "일제강점기", type: "mc",
-    stem: "3·1 운동이 일어난 해는?",
-    choices: ["1910년", "1919년", "1929년", "1937년", "1945년"],
-    answer: 1, explain: "1919년 3월 1일 전국적 독립 만세 운동이 일어났다."
+    id: 22, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "갑신정변을 주도한 급진 개화파의 대표적 인물은?",
+    choices: ["최익현", "전봉준", "김옥균", "안중근", "유관순"],
+    answer: 2, explain: "김옥균 등이 갑신정변을 일으켰다."
   },
   {
-    id: 27, subject: "역사상식", format: "일제강점기", type: "mc",
-    stem: "대한민국 임시정부가 수립된 장소는?",
-    choices: ["서울", "부산", "도쿄", "상하이", "블라디보스토크"],
-    answer: 3, explain: "1919년 중국 상하이에 대한민국 임시정부가 수립되었다."
+    id: 23, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "동학농민운동을 이끈 지도자로 잘 알려진 인물은?",
+    choices: ["김옥균", "전봉준", "민영환", "이완용", "고종"],
+    answer: 1, explain: "전봉준이 동학농민운동을 이끈 대표적 지도자다."
   },
   {
-    id: 28, subject: "역사상식", format: "일제강점기", type: "mc",
-    stem: "1920년대 일제가 ‘문화 통치’를 표방하게 된 직접적 배경은?",
-    choices: ["갑신정변", "병인양요", "3·1 운동", "6·25 전쟁", "4·19 혁명"],
-    answer: 2, explain: "3·1 운동 이후 기만적 문화 통치로 전환했다."
+    id: 24, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "을사늑약에 반대하며 자결로 항의한 충정공으로 알려진 인물은?",
+    choices: ["이준", "민영환", "안중근", "윤봉길", "이완용"],
+    answer: 1, explain: "민영환이 을사늑약에 통분하여 자결했다."
   },
   {
-    id: 29, subject: "역사상식", format: "일제강점기", type: "mc",
-    stem: "일제 말기 민족 말살 통치의 사례로 알맞은 것은?",
-    choices: ["한글 신문 허용", "창씨개명", "회사령 폐지", "보통선거 실시", "토지조사 중단"],
-    answer: 1, explain: "황국신민화 정책의 일환으로 창씨개명 등이 강요되었다."
+    id: 25, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "하얼빈에서 이토 히로부미를 사살한 독립운동가는?",
+    choices: ["윤봉길", "이봉창", "안중근", "김구", "홍범도"],
+    answer: 2, explain: "안중근이 이토 히로부미를 저격했다."
   },
   {
-    id: 30, subject: "역사상식", format: "현대", type: "mc",
-    stem: "광복절의 날짜는?",
-    choices: ["3월 1일", "6월 25일", "7월 27일", "8월 15일", "10월 3일"],
-    answer: 3, explain: "1945년 8월 15일 광복."
+    id: 26, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "한인 애국단을 조직하고 윤봉길 의거 등을 지원한 임시정부 계열 지도자는?",
+    choices: ["이승만", "김구", "여운형", "김규식", "안창호"],
+    answer: 1, explain: "김구가 한인 애국단을 이끌며 의거를 지원했다."
   },
   {
-    id: 31, subject: "역사상식", format: "현대", type: "mc",
-    stem: "대한민국 정부 수립일은?",
-    choices: ["1945.8.15", "1948.8.15", "1950.6.25", "1953.7.27", "1960.4.19"],
-    answer: 1, explain: "1948년 8월 15일 대한민국 정부가 수립되었다."
+    id: 27, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "상하이 홍커우 공원에서 일본 고관을 겨냥한 의거를 실행한 인물은?",
+    choices: ["안중근", "이봉창", "윤봉길", "유관순", "신사임당"],
+    answer: 2, explain: "윤봉길 의사가 홍커우 공원 의거를 단행했다."
   },
   {
-    id: 32, subject: "역사상식", format: "현대", type: "mc",
-    stem: "6·25 전쟁 중 전세를 바꾼 인천상륙작전을 지휘한 인물은?",
-    choices: ["이승만", "김구", "맥아더", "박헌영", "장면"],
-    answer: 2, explain: "1950년 9월 맥아더가 지휘한 인천상륙작전."
+    id: 28, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "3·1 운동 당시 천안 병천 등에서 만세 시위를 이끌다 옥고한 학생 독립운동가로 널리 알려진 인물은?",
+    choices: ["유관순", "남자현", "김마리아", "최용신", "이상재"],
+    answer: 0, explain: "유관순이 3·1 운동 관련 시위에서 활약하다 순국했다."
   },
   {
-    id: 33, subject: "역사상식", format: "현대", type: "mc",
-    stem: "한국전쟁 정전협정이 체결된 해는?",
-    choices: ["1950년", "1951년", "1953년", "1960년", "1961년"],
-    answer: 2, explain: "1953년 7월 27일 정전협정이 체결되었다."
+    id: 29, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "봉오동·청산리 전투 등에서 활약한 독립군 지휘관으로 알맞은 인물은?",
+    choices: ["홍범도", "이완용", "송병준", "이용구", "배정자"],
+    answer: 0, explain: "홍범도 장군이 봉오동 전투 등에서 활약했다. (청산리에는 김좌진 등도 참여)"
   },
   {
-    id: 34, subject: "역사상식", format: "현대", type: "mc",
-    stem: "4·19 혁명의 직접적 계기는?",
-    choices: ["한일협정", "3·15 부정선거", "유신헌법", "광주 민주화 운동", "IMF 위기"],
-    answer: 1, explain: "1960년 3·15 부정선거에 항의하여 4·19 혁명이 일어났다."
+    id: 30, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "청산리 전투를 이끈 북로군정서 지휘관으로 잘 알려진 인물은?",
+    choices: ["안중근", "김좌진", "윤봉길", "이봉창", "신채호"],
+    answer: 1, explain: "김좌진이 청산리 전투를 지휘한 대표 인물이다."
   },
   {
-    id: 35, subject: "역사상식", format: "세계사", type: "mc",
-    stem: "산업혁명이 가장 먼저 시작된 나라는?",
-    choices: ["프랑스", "독일", "미국", "영국", "일본"],
-    answer: 3, explain: "18세기 후반 영국에서 산업혁명이 시작되었다."
+    id: 31, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "민족주의 사학을 주장하며 『조선상고사』 등을 남긴 인물은?",
+    choices: ["이병도", "신채호", "최남선", "정인보", "백남운"],
+    answer: 1, explain: "단재 신채호가 민족주의 사학을 대표한다."
   },
   {
-    id: 36, subject: "역사상식", format: "세계사", type: "mc",
-    stem: "프랑스 혁명 시작 연도는?",
-    choices: ["1688년", "1776년", "1789년", "1848년", "1917년"],
-    answer: 2, explain: "1789년 프랑스 혁명이 시작되었다."
+    id: 32, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "한글 보급과 국어 연구에 힘쓴 조선어학회(한글학회) 활동의 상징적 인물로 알맞은 것은?",
+    choices: ["주시경", "이완용", "고종", "흥선대원군", "김옥균"],
+    answer: 0, explain: "주시경은 국어 연구·한글 운동의 선구자다. (학회는 제자들이 계승)"
   },
   {
-    id: 37, subject: "역사상식", format: "세계사", type: "mc",
-    stem: "제1차 세계대전이 끝난 해는?",
-    choices: ["1914년", "1917년", "1918년", "1939년", "1945년"],
-    answer: 2, explain: "1914년 시작, 1918년 종전."
-  },
-  {
-    id: 38, subject: "역사상식", format: "세계사", type: "mc",
-    stem: "제2차 세계대전이 끝난 해는?",
-    choices: ["1918년", "1939년", "1941년", "1945년", "1950년"],
-    answer: 3, explain: "1939년 시작, 1945년 종전."
-  },
-
-  // ===== 영어 39–41 =====
-  {
-    id: 39, subject: "영어", format: "어휘", type: "mc",
-    stem: "History 관련 단어: \"independence\"의 뜻으로 알맞은 것은?",
-    choices: ["종속", "독립", "침략", "항복", "합병"],
-    answer: 1, explain: "independence = 독립."
-  },
-  {
-    id: 40, subject: "영어", format: "빈칸", type: "mc",
-    stem: "Korea was liberated _____ Japan in 1945.",
-    choices: ["for", "from", "by", "since", "during"],
-    answer: 1, explain: "liberated from ~ = ~로부터 해방되다."
-  },
-  {
-    id: 41, subject: "영어", format: "독해", type: "mc",
-    stem: "글의 주제로 알맞은 것은?",
-    passage: "Learning timelines helps students remember historical events in order. Connecting dates with causes and results makes revision easier.",
-    choices: ["요리법", "연표·인과로 역사를 외우면 복습에 도움이 된다", "운동의 중요성", "수학 공식", "여행 계획"],
-    answer: 1, explain: "연표와 인과 연결이 역사 학습에 도움이 된다는 내용."
-  },
-
-  // ===== 논리 42–44 =====
-  {
-    id: 42, subject: "논리", format: "순서", type: "mc",
-    stem: "역사 사건 논리: A가 B보다 먼저이고, C가 A보다 먼저면?",
-    choices: ["B가 가장 먼저", "C가 가장 먼저", "A가 가장 먼저", "순서 알 수 없음", "B와 C가 동시"],
-    answer: 1, explain: "C → A → B 이므로 C가 가장 먼저."
-  },
-  {
-    id: 43, subject: "논리", format: "추론", type: "mc",
-    stem: "\"모든 조선 왕은 조선 시대 인물이다. 세종은 조선 왕이다.\" 결론은?",
-    choices: ["세종은 고려 왕이다", "세종은 조선 시대 인물이다", "모든 조선 시대 인물은 왕이다", "세종은 왕이 아니다", "결론 없음"],
-    answer: 1, explain: "삼단논법으로 세종은 조선 시대 인물이다."
-  },
-  {
-    id: 44, subject: "논리", format: "자료", type: "mc",
-    stem: "연표에 사건 4개가 있다. 가운데 두 사건 사이 간격이 가장 길다면, ‘간격’의 의미로 알맞은 것은?",
-    choices: ["사건의 중요도", "두 사건 사이 시간 차이", "인물의 수", "장소의 거리", "사료의 분량"],
-    answer: 1, explain: "연표에서 간격은 보통 시간 차이를 뜻한다."
-  },
-
-  // ===== 일반상식 45–46 =====
-  {
-    id: 45, subject: "일반상식", format: "기념일", type: "mc",
-    stem: "한글날과 관련된 역사적 사건은?",
-    choices: ["임진왜란", "훈민정음 반포", "갑오개혁", "3·1 운동", "광복"],
-    answer: 1, explain: "한글날은 훈민정음 반포를 기념한다."
-  },
-  {
-    id: 46, subject: "일반상식", format: "문화재", type: "mc",
-    stem: "해인사의 팔만대장경판이 제작된 시대는?",
-    choices: ["신라", "발해", "고려", "조선", "대한제국"],
-    answer: 2, explain: "팔만대장경은 고려 시대에 조성되었다."
-  },
-
-  // ===== 수리·물리 47–48 =====
-  {
-    id: 47, subject: "수리·물리", format: "계산", type: "mc",
-    stem: "1446년에서 1392년을 빼면? (조선 건국~훈민정음 반포 간격)",
-    choices: ["44년", "54년", "64년", "74년", "84년"],
-    answer: 1, explain: "1446−1392=54."
-  },
-  {
-    id: 48, subject: "수리·물리", format: "계산", type: "mc",
-    stem: "1919년은 1910년으로부터 몇 년 후인가?",
-    choices: ["5년", "7년", "9년", "11년", "15년"],
-    answer: 2, explain: "1919−1910=9."
-  },
-
-  // ===== 의사소통 49–50 =====
-  {
-    id: 49, subject: "의사소통", format: "요약", type: "mc",
-    stem: "다음 중 역사 학습 노트의 좋은 요약 문장은?",
+    id: 33, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "흥선대원군의 정책으로 알맞은 것은?",
     choices: [
-      "역사는 그냥 어렵다.",
-      "임진왜란(1592)은 일본의 침입으로 시작되었고, 이순신 등의 활약과 의병 저항이 이어졌다.",
-      "예전에 전쟁이 있었다.",
-      "왕이 뭔가 했다.",
-      "외우기 싫다."
+      "갑신정변 주도",
+      "서원 철폐와 경복궁 중건",
+      "을사늑약 체결",
+      "한인 애국단 조직",
+      "청해진 설치"
     ],
-    answer: 1, explain: "연도·주체·핵심 전개가 담긴 요약이 좋다."
+    answer: 1, explain: "흥선대원군은 서원 철폐, 경복궁 중건, 통상 수교 거부 등으로 알려져 있다."
   },
   {
-    id: 50, subject: "의사소통", format: "암기팁", type: "mc",
-    stem: "역사 연도를 외울 때 가장 효과적인 방법은?",
+    id: 34, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "아래 설명에 해당하는 인물은?",
+    passage: "조선 개국 공신으로, 『조선경국전』 등을 통해 재상 중심의 유교 정치 이념을 제시했으나 왕자의 난 과정에서 제거되었다.",
+    choices: ["정몽주", "정도전", "하륜", "이숙번", "길재"],
+    answer: 1, explain: "정도전이 재상 중심 정치를 구상했으나 이방원과의 갈등 끝에 제거되었다."
+  },
+  {
+    id: 35, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "아래 설명에 해당하는 인물은?",
+    passage: "고려 말 개혁을 추진하려 했으나 신진 사대부·이성계 세력과 대립했다. ‘선죽교’ 설화로도 유명하다.",
+    choices: ["정몽주", "정도전", "길재", "이색", "조준"],
+    answer: 0, explain: "포은 정몽주는 고려 충신으로, 선죽교에서 피살된 것으로 전한다."
+  },
+  {
+    id: 36, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "신라 화랑 출신으로 삼국 통일 전쟁에서 활약한 장군은?",
+    choices: ["김유신", "김춘추", "관창", "원효", "장보고"],
+    answer: 0, explain: "김유신이 삼국 통일 전쟁에서 핵심적 역할을 했다. 김춘추는 무열왕."
+  },
+  {
+    id: 37, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "해상 세력을 이끌고 청해진을 설치해 해적을 소탕한 신라 말의 인물은?",
+    choices: ["장보고", "최치원", "견훤", "궁예", "왕건"],
+    answer: 0, explain: "장보고가 청해진을 두고 해상권을 장악했다."
+  },
+  {
+    id: 38, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "원효의 사상·활동으로 가장 알맞은 것은?",
     choices: [
-      "아무 숫자나 반복만 한다",
-      "사건·인과·키워드와 묶어 연표로 외운다",
-      "시험 직전에만 한 번 본다",
-      "인물 이름은 무시한다",
-      "세계사는 전혀 보지 않는다"
+      "해동 천태종 개창",
+      "불교의 대중화와 화쟁 사상",
+      "성리학 도입",
+      "실학 집대성",
+      "동학 창시"
     ],
-    answer: 1, explain: "연도만 외우기보다 사건·인과와 연결한 연표 학습이 효과적이다."
+    answer: 1, explain: "원효는 불교 대중화와 화쟁 사상으로 유명하다."
+  },
+  {
+    id: 39, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "성리학을 깊이 연구하고 『성학십도』 등을 남긴 조선의 학자는?",
+    choices: ["이이", "이황", "조광조", "한백겸", "정제두"],
+    answer: 1, explain: "퇴계 이황이 『성학십도』 등으로 성리학을 체계화했다."
+  },
+  {
+    id: 40, subject: "역사상식", format: "인물·활약", type: "mc",
+    stem: "『동호문답』 등으로 사회 개혁을 논하고, ‘십만양병설’ 일화로도 알려진 학자는?",
+    choices: ["이황", "이이", "정약용", "박지원", "유형원"],
+    answer: 1, explain: "율곡 이이가 개혁론을 제시했고, 양병 필요를 강조한 일화로도 알려졌다."
   }
 ];
 
@@ -982,7 +910,8 @@ window.NCS_QUESTIONS = [
   const META = window.NCS_META || {};
   const KEYS = ["①", "②", "③", "④", "⑤"];
   const TOTAL = Q.length;
-  const STORAGE_KEY = "ncs-cbt-history-v2";
+  const STORAGE_KEY = "ncs-cbt-history-people-v5";
+  const DEFAULT_SECONDS = 30 * 60;
 
   const state = {
     index: 0,
@@ -990,7 +919,7 @@ window.NCS_QUESTIONS = [
     checked: Array(TOTAL).fill(false),
     results: Array(TOTAL).fill(null),
     timerOn: true,
-    seconds: 60 * 60,
+    seconds: DEFAULT_SECONDS,
     timerId: null,
     started: false,
     finished: false
@@ -1001,6 +930,8 @@ window.NCS_QUESTIONS = [
   const quizPanel = $("quizPanel");
   const resultPanel = $("resultPanel");
   const topMeta = $("topMeta");
+
+  if ($("totalCount")) $("totalCount").textContent = String(TOTAL);
 
   function loadHistory() {
     try {
@@ -1016,25 +947,9 @@ window.NCS_QUESTIONS = [
     localStorage.setItem(STORAGE_KEY, JSON.stringify(hist.slice(0, 10)));
   }
 
-  function lastWeakSubjects() {
-    const hist = loadHistory();
-    if (!hist.length) return META.focus || [];
-    const last = hist[0];
-    return (last.subjects || [])
-      .filter((s) => s.total > 0 && s.correct / s.total < 0.6)
-      .sort((a, b) => a.correct / a.total - b.correct / b.total)
-      .map((s) => s.name)
-      .slice(0, 3);
-  }
-
   function renderFocusBanner() {
     const box = $("focusBanner");
-    const weak = lastWeakSubjects();
-    const fromHistory = loadHistory().length > 0;
-    const labels = weak.length ? weak.join(" · ") : (META.focus || []).join(" · ");
-    box.innerHTML = fromHistory
-      ? `<strong>지난 응시 약점 반영</strong><span>정답률 낮은 과목: <b>${labels}</b> — 이번 세트는 해당 영역을 더 많이 포함합니다.</span>`
-      : `<strong>약점 집중 세트</strong><span>${META.focusNote || ""}</span><br/><span>집중 과목: <b>${labels}</b></span>`;
+    box.innerHTML = `<strong>학습 모드</strong><span>${META.focusNote || ""}</span>`;
   }
 
   function answeredCount() {
@@ -1074,7 +989,7 @@ window.NCS_QUESTIONS = [
       btn.type = "button";
       btn.className = "nav-btn";
       btn.textContent = String(i + 1);
-      btn.title = q.subject;
+      btn.title = q.format || q.subject;
       btn.addEventListener("click", () => {
         state.index = i;
         renderQuestion();
@@ -1133,14 +1048,13 @@ window.NCS_QUESTIONS = [
   function renderQuestion() {
     const i = state.index;
     const q = Q[i];
-    $("qSubject").textContent = q.subject;
+    $("qSubject").textContent = "한국사";
     const fmt = $("qFormat");
     if (q.format) {
       fmt.hidden = false;
       fmt.textContent = q.format;
     } else {
       fmt.hidden = true;
-      fmt.textContent = "";
     }
     $("qNum").textContent = `${i + 1} / ${TOTAL}`;
     $("qStem").textContent = q.stem;
@@ -1204,7 +1118,7 @@ window.NCS_QUESTIONS = [
     state.checked = Array(TOTAL).fill(false);
     state.results = Array(TOTAL).fill(null);
     state.timerOn = $("timerToggle").checked;
-    state.seconds = 60 * 60;
+    state.seconds = DEFAULT_SECONDS;
 
     startPanel.hidden = true;
     resultPanel.hidden = true;
@@ -1226,23 +1140,16 @@ window.NCS_QUESTIONS = [
   }
 
   function computeScores() {
-    const bySubject = {};
     let correct = 0;
-
+    const wrongPeople = [];
     Q.forEach((q, i) => {
-      if (!bySubject[q.subject]) bySubject[q.subject] = { name: q.subject, correct: 0, total: 0 };
-      bySubject[q.subject].total += 1;
       const ok = state.answers[i] === q.answer;
       state.results[i] = ok;
       state.checked[i] = true;
-      if (ok) {
-        correct += 1;
-        bySubject[q.subject].correct += 1;
-      }
+      if (ok) correct += 1;
+      else wrongPeople.push(q.choices[q.answer] || q.stem.slice(0, 24));
     });
-
-    const subjects = Object.values(bySubject);
-    return { correct, subjects };
+    return { correct, wrongPeople };
   }
 
   function finishTest(fromTimer) {
@@ -1251,52 +1158,35 @@ window.NCS_QUESTIONS = [
 
     const scores = computeScores();
     const pct = Math.round((scores.correct / TOTAL) * 100);
-    const weak = scores.subjects
-      .filter((s) => s.total > 0)
-      .map((s) => ({ ...s, rate: s.correct / s.total }))
-      .sort((a, b) => a.rate - b.rate);
 
     saveAttempt({
       at: Date.now(),
-      version: META.version || 2,
+      version: META.version || 5,
       correct: scores.correct,
       total: TOTAL,
-      subjects: scores.subjects
+      wrong: scores.wrongPeople
     });
 
     quizPanel.hidden = true;
     resultPanel.hidden = false;
     $("scoreTitle").textContent = fromTimer ? "시간 종료 · 자동 제출" : "채점 완료";
-    $("scoreLead").textContent = `전체 정답 ${scores.correct}/${TOTAL}`;
+    $("scoreLead").textContent = `인물·활약 문제 ${scores.correct}/${TOTAL}`;
     $("scorePct").textContent = `${pct}%`;
     $("scoreFrac").textContent = `${scores.correct} / ${TOTAL}`;
     $("scoreRing").style.setProperty("--p", `${pct}%`);
 
     const wbox = $("weaknessBox");
-    const topWeak = weak.filter((s) => s.rate < 0.7).slice(0, 3);
-    if (topWeak.length) {
+    if (scores.wrongPeople.length) {
+      const uniq = [...new Set(scores.wrongPeople)].slice(0, 8);
       wbox.innerHTML =
-        `<strong>약점 분석</strong>` +
-        topWeak
-          .map(
-            (s) =>
-              `<div class="weak-row"><span>${s.name}</span><b>${s.correct}/${s.total}</b> <em>(${Math.round(s.rate * 100)}%)</em></div>`
-          )
-          .join("") +
-        `<p class="weak-tip">다음 세트에서는 위 과목 비중을 더 늘리는 것을 권장합니다. 결과는 이 기기에 저장되었습니다.</p>`;
+        `<strong>다시 볼 인물·키워드</strong>` +
+        uniq.map((n) => `<div class="weak-row"><span>${n}</span></div>`).join("") +
+        `<p class="weak-tip">위 인물을 암기 카드에서 찾아 업적만 다시 외워보세요.</p>`;
     } else {
-      wbox.innerHTML = `<strong>약점 분석</strong><p class="weak-tip">전 과목 정답률이 고르게 양호합니다. 오답 해설을 복습해 보세요.</p>`;
+      wbox.innerHTML = `<strong>훌륭합니다</strong><p class="weak-tip">전 문항 정답입니다. 암기 카드로 한 번 더 훑어보면 좋습니다.</p>`;
     }
 
-    const box = $("subjectScores");
-    box.innerHTML = "";
-    scores.subjects.forEach((s) => {
-      const rate = Math.round((s.correct / s.total) * 100);
-      const art = document.createElement("article");
-      if (rate < 60) art.classList.add("weak");
-      art.innerHTML = `<h3>${s.name}</h3><p>${s.correct} / ${s.total} · ${rate}%</p>`;
-      box.appendChild(art);
-    });
+    $("subjectScores").innerHTML = `<article class="hot-score"><h3>한국사 (인물·활약)</h3><p>${scores.correct} / ${TOTAL} · ${pct}%</p></article>`;
   }
 
   $("startBtn").addEventListener("click", startTest);
@@ -1311,17 +1201,16 @@ window.NCS_QUESTIONS = [
     if (state.index < TOTAL - 1) {
       state.index += 1;
       renderQuestion();
-    } else {
-      finishTest(false);
-    }
+    } else finishTest(false);
   });
   $("submitAllBtn").addEventListener("click", () => {
-    if (confirm("전체 제출하고 결과를 확인할까요?")) finishTest(false);
+    if (confirm("제출하고 결과를 볼까요?")) finishTest(false);
   });
   $("reviewBtn").addEventListener("click", () => {
     resultPanel.hidden = true;
     quizPanel.hidden = false;
-    state.index = 0;
+    const firstWrong = state.results.findIndex((r) => r === false);
+    state.index = firstWrong >= 0 ? firstWrong : 0;
     renderQuestion();
   });
   $("restartBtn").addEventListener("click", () => {

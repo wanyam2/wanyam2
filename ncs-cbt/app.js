@@ -3,7 +3,8 @@
   const META = window.NCS_META || {};
   const KEYS = ["①", "②", "③", "④", "⑤"];
   const TOTAL = Q.length;
-  const STORAGE_KEY = "ncs-cbt-history-v2";
+  const STORAGE_KEY = "ncs-cbt-history-people-v5";
+  const DEFAULT_SECONDS = 30 * 60;
 
   const state = {
     index: 0,
@@ -11,7 +12,7 @@
     checked: Array(TOTAL).fill(false),
     results: Array(TOTAL).fill(null),
     timerOn: true,
-    seconds: 60 * 60,
+    seconds: DEFAULT_SECONDS,
     timerId: null,
     started: false,
     finished: false
@@ -22,6 +23,8 @@
   const quizPanel = $("quizPanel");
   const resultPanel = $("resultPanel");
   const topMeta = $("topMeta");
+
+  if ($("totalCount")) $("totalCount").textContent = String(TOTAL);
 
   function loadHistory() {
     try {
@@ -37,25 +40,9 @@
     localStorage.setItem(STORAGE_KEY, JSON.stringify(hist.slice(0, 10)));
   }
 
-  function lastWeakSubjects() {
-    const hist = loadHistory();
-    if (!hist.length) return META.focus || [];
-    const last = hist[0];
-    return (last.subjects || [])
-      .filter((s) => s.total > 0 && s.correct / s.total < 0.6)
-      .sort((a, b) => a.correct / a.total - b.correct / b.total)
-      .map((s) => s.name)
-      .slice(0, 3);
-  }
-
   function renderFocusBanner() {
     const box = $("focusBanner");
-    const weak = lastWeakSubjects();
-    const fromHistory = loadHistory().length > 0;
-    const labels = weak.length ? weak.join(" · ") : (META.focus || []).join(" · ");
-    box.innerHTML = fromHistory
-      ? `<strong>지난 응시 약점 반영</strong><span>정답률 낮은 과목: <b>${labels}</b> — 이번 세트는 해당 영역을 더 많이 포함합니다.</span>`
-      : `<strong>약점 집중 세트</strong><span>${META.focusNote || ""}</span><br/><span>집중 과목: <b>${labels}</b></span>`;
+    box.innerHTML = `<strong>학습 모드</strong><span>${META.focusNote || ""}</span>`;
   }
 
   function answeredCount() {
@@ -95,7 +82,7 @@
       btn.type = "button";
       btn.className = "nav-btn";
       btn.textContent = String(i + 1);
-      btn.title = q.subject;
+      btn.title = q.format || q.subject;
       btn.addEventListener("click", () => {
         state.index = i;
         renderQuestion();
@@ -154,14 +141,13 @@
   function renderQuestion() {
     const i = state.index;
     const q = Q[i];
-    $("qSubject").textContent = q.subject;
+    $("qSubject").textContent = "한국사";
     const fmt = $("qFormat");
     if (q.format) {
       fmt.hidden = false;
       fmt.textContent = q.format;
     } else {
       fmt.hidden = true;
-      fmt.textContent = "";
     }
     $("qNum").textContent = `${i + 1} / ${TOTAL}`;
     $("qStem").textContent = q.stem;
@@ -225,7 +211,7 @@
     state.checked = Array(TOTAL).fill(false);
     state.results = Array(TOTAL).fill(null);
     state.timerOn = $("timerToggle").checked;
-    state.seconds = 60 * 60;
+    state.seconds = DEFAULT_SECONDS;
 
     startPanel.hidden = true;
     resultPanel.hidden = true;
@@ -247,23 +233,16 @@
   }
 
   function computeScores() {
-    const bySubject = {};
     let correct = 0;
-
+    const wrongPeople = [];
     Q.forEach((q, i) => {
-      if (!bySubject[q.subject]) bySubject[q.subject] = { name: q.subject, correct: 0, total: 0 };
-      bySubject[q.subject].total += 1;
       const ok = state.answers[i] === q.answer;
       state.results[i] = ok;
       state.checked[i] = true;
-      if (ok) {
-        correct += 1;
-        bySubject[q.subject].correct += 1;
-      }
+      if (ok) correct += 1;
+      else wrongPeople.push(q.choices[q.answer] || q.stem.slice(0, 24));
     });
-
-    const subjects = Object.values(bySubject);
-    return { correct, subjects };
+    return { correct, wrongPeople };
   }
 
   function finishTest(fromTimer) {
@@ -272,52 +251,35 @@
 
     const scores = computeScores();
     const pct = Math.round((scores.correct / TOTAL) * 100);
-    const weak = scores.subjects
-      .filter((s) => s.total > 0)
-      .map((s) => ({ ...s, rate: s.correct / s.total }))
-      .sort((a, b) => a.rate - b.rate);
 
     saveAttempt({
       at: Date.now(),
-      version: META.version || 2,
+      version: META.version || 5,
       correct: scores.correct,
       total: TOTAL,
-      subjects: scores.subjects
+      wrong: scores.wrongPeople
     });
 
     quizPanel.hidden = true;
     resultPanel.hidden = false;
     $("scoreTitle").textContent = fromTimer ? "시간 종료 · 자동 제출" : "채점 완료";
-    $("scoreLead").textContent = `전체 정답 ${scores.correct}/${TOTAL}`;
+    $("scoreLead").textContent = `인물·활약 문제 ${scores.correct}/${TOTAL}`;
     $("scorePct").textContent = `${pct}%`;
     $("scoreFrac").textContent = `${scores.correct} / ${TOTAL}`;
     $("scoreRing").style.setProperty("--p", `${pct}%`);
 
     const wbox = $("weaknessBox");
-    const topWeak = weak.filter((s) => s.rate < 0.7).slice(0, 3);
-    if (topWeak.length) {
+    if (scores.wrongPeople.length) {
+      const uniq = [...new Set(scores.wrongPeople)].slice(0, 8);
       wbox.innerHTML =
-        `<strong>약점 분석</strong>` +
-        topWeak
-          .map(
-            (s) =>
-              `<div class="weak-row"><span>${s.name}</span><b>${s.correct}/${s.total}</b> <em>(${Math.round(s.rate * 100)}%)</em></div>`
-          )
-          .join("") +
-        `<p class="weak-tip">다음 세트에서는 위 과목 비중을 더 늘리는 것을 권장합니다. 결과는 이 기기에 저장되었습니다.</p>`;
+        `<strong>다시 볼 인물·키워드</strong>` +
+        uniq.map((n) => `<div class="weak-row"><span>${n}</span></div>`).join("") +
+        `<p class="weak-tip">위 인물을 암기 카드에서 찾아 업적만 다시 외워보세요.</p>`;
     } else {
-      wbox.innerHTML = `<strong>약점 분석</strong><p class="weak-tip">전 과목 정답률이 고르게 양호합니다. 오답 해설을 복습해 보세요.</p>`;
+      wbox.innerHTML = `<strong>훌륭합니다</strong><p class="weak-tip">전 문항 정답입니다. 암기 카드로 한 번 더 훑어보면 좋습니다.</p>`;
     }
 
-    const box = $("subjectScores");
-    box.innerHTML = "";
-    scores.subjects.forEach((s) => {
-      const rate = Math.round((s.correct / s.total) * 100);
-      const art = document.createElement("article");
-      if (rate < 60) art.classList.add("weak");
-      art.innerHTML = `<h3>${s.name}</h3><p>${s.correct} / ${s.total} · ${rate}%</p>`;
-      box.appendChild(art);
-    });
+    $("subjectScores").innerHTML = `<article class="hot-score"><h3>한국사 (인물·활약)</h3><p>${scores.correct} / ${TOTAL} · ${pct}%</p></article>`;
   }
 
   $("startBtn").addEventListener("click", startTest);
@@ -332,17 +294,16 @@
     if (state.index < TOTAL - 1) {
       state.index += 1;
       renderQuestion();
-    } else {
-      finishTest(false);
-    }
+    } else finishTest(false);
   });
   $("submitAllBtn").addEventListener("click", () => {
-    if (confirm("전체 제출하고 결과를 확인할까요?")) finishTest(false);
+    if (confirm("제출하고 결과를 볼까요?")) finishTest(false);
   });
   $("reviewBtn").addEventListener("click", () => {
     resultPanel.hidden = true;
     quizPanel.hidden = false;
-    state.index = 0;
+    const firstWrong = state.results.findIndex((r) => r === false);
+    state.index = firstWrong >= 0 ? firstWrong : 0;
     renderQuestion();
   });
   $("restartBtn").addEventListener("click", () => {

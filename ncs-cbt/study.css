@@ -158,6 +158,49 @@
 .drill-item.ok input { border-color: var(--good); background: #f1faf5; }
 .drill-item.no input { border-color: var(--bad); background: #fff6f5; }
 
+.match-box { display: grid; gap: 0.9rem; }
+.match-item {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  background: rgba(255, 255, 255, 0.85);
+}
+.match-q {
+  font-weight: 700;
+  margin-bottom: 0.55rem;
+  font-size: 0.95rem;
+}
+.match-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+.match-choices button {
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 10px;
+  padding: 0.45rem 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+.match-choices button.ok {
+  border-color: var(--good);
+  background: #eaf7f0;
+  color: var(--good);
+  font-weight: 700;
+}
+.match-choices button.no {
+  border-color: var(--bad);
+  background: #fff1f0;
+  color: var(--bad);
+}
+.subject-scores article.hot-score,
+.hot-score {
+  border-color: rgba(196, 92, 38, 0.4) !important;
+  background: #fff6ef !important;
+}
+
 a.btn {
   display: inline-flex;
   align-items: center;
