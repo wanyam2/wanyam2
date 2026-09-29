@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>한국사 인물 암기 카드</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Outfit:wght@600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="study.css" />
+</head>
+<body>
+  <div class="bg-layer" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">史</span>
+      <div class="brand-text">
+        <strong>인물 암기 카드</strong>
+        <span>업적 중심 · 연도 최소화</span>
+      </div>
+    </div>
+    <div class="top-meta" style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <a class="btn ghost" href="quiz.html">CBT 풀기</a>
+      <a class="btn primary" href="index.html">홈</a>
+    </div>
+  </header>
+
+  <main class="study-main">
+    <section class="panel">
+      <p class="eyebrow">People First</p>
+      <h1>누가, 무엇을 했는가</h1>
+      <p class="lead">카드를 탭하면 업적이 나옵니다. 연도보다 역할·성과를 먼저 잡으세요.</p>
+      <nav class="study-toc">
+        <a href="#ancient">고대·남북국</a>
+        <a href="#goryeo">고려</a>
+        <a href="#joseon">조선</a>
+        <a href="#modern">근현대</a>
+        <a href="#match">짝맞추기</a>
+      </nav>
+    </section>
+
+    <section class="panel" id="ancient">
+      <h2>고대 · 남북국</h2>
+      <div class="cards" data-pack="ancient"></div>
+    </section>
+    <section class="panel" id="goryeo">
+      <h2>고려</h2>
+      <div class="cards" data-pack="goryeo"></div>
+    </section>
+    <section class="panel" id="joseon">
+      <h2>조선</h2>
+      <div class="cards" data-pack="joseon"></div>
+    </section>
+    <section class="panel" id="modern">
+      <h2>근현대 · 독립운동</h2>
+      <div class="cards" data-pack="modern"></div>
+    </section>
+
+    <section class="panel" id="match">
+      <h2>빠른 짝맞추기</h2>
+      <p class="section-lead">업적을 보고 인물을 고르세요. (즉시 채점)</p>
+      <div id="matchBox" class="match-box"></div>
+      <div class="cta-row" style="margin-top:1rem">
+        <button type="button" class="btn primary" id="reshuffleMatch">다시 섞기</button>
+        <a class="btn secondary" href="quiz.html">인물 CBT 풀기</a>
+      </div>
+      <p class="hint" id="matchScore"></p>
+    </section>
+  </main>
+
+  <script src="study.js"></script>
+</body>
+</html>
