@@ -1,16 +1,20 @@
 (() => {
-  const Q = window.NCS_QUESTIONS;
+  const ALL = window.NCS_QUESTIONS;
   const META = window.NCS_META || {};
   const KEYS = ["①", "②", "③", "④", "⑤"];
-  const TOTAL = Q.length;
-  const STORAGE_KEY = "ncs-cbt-history-people-v5";
+  const ERAS = META.eras || ["고대·남북국", "고려", "조선", "근현대"];
+  const STORAGE_KEY = "ncs-cbt-history-era-v6";
   const DEFAULT_SECONDS = 30 * 60;
 
+  let Q = ALL;
+  let TOTAL = Q.length;
+
   const state = {
+    era: "전체",
     index: 0,
-    answers: Array(TOTAL).fill(null),
-    checked: Array(TOTAL).fill(false),
-    results: Array(TOTAL).fill(null),
+    answers: [],
+    checked: [],
+    results: [],
     timerOn: true,
     seconds: DEFAULT_SECONDS,
     timerId: null,
@@ -24,25 +28,50 @@
   const resultPanel = $("resultPanel");
   const topMeta = $("topMeta");
 
-  if ($("totalCount")) $("totalCount").textContent = String(TOTAL);
+  function resetArrays() {
+    TOTAL = Q.length;
+    state.answers = Array(TOTAL).fill(null);
+    state.checked = Array(TOTAL).fill(false);
+    state.results = Array(TOTAL).fill(null);
+    state.index = 0;
+    if ($("totalCount")) $("totalCount").textContent = String(TOTAL);
+  }
 
-  function loadHistory() {
-    try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    } catch {
-      return [];
+  function setEra(era) {
+    state.era = era;
+    Q = era === "전체" ? ALL : ALL.filter((q) => q.era === era);
+    resetArrays();
+    document.querySelectorAll(".era-btn").forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.era === era);
+    });
+    const countEl = $("eraCount");
+    if (countEl) {
+      countEl.textContent =
+        era === "전체"
+          ? `전체 ${ALL.length}문항`
+          : `${era} ${Q.length}문항`;
     }
   }
 
-  function saveAttempt(payload) {
-    const hist = loadHistory();
-    hist.unshift(payload);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(hist.slice(0, 10)));
+  function renderEraButtons() {
+    const wrap = $("eraButtons");
+    if (!wrap) return;
+    wrap.innerHTML = "";
+    ["전체", ...ERAS].forEach((era) => {
+      const n = era === "전체" ? ALL.length : ALL.filter((q) => q.era === era).length;
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "era-btn" + (era === state.era ? " active" : "");
+      btn.dataset.era = era;
+      btn.innerHTML = `<b>${era}</b><span>${n}문항</span>`;
+      btn.addEventListener("click", () => setEra(era));
+      wrap.appendChild(btn);
+    });
   }
 
   function renderFocusBanner() {
     const box = $("focusBanner");
-    box.innerHTML = `<strong>학습 모드</strong><span>${META.focusNote || ""}</span>`;
+    box.innerHTML = `<strong>시대별 인물·활약</strong><span>${META.focusNote || ""}</span>`;
   }
 
   function answeredCount() {
@@ -52,7 +81,7 @@
   function updateProgress() {
     const n = answeredCount();
     $("answeredCount").textContent = String(n);
-    $("progressFill").style.width = `${(n / TOTAL) * 100}%`;
+    $("progressFill").style.width = TOTAL ? `${(n / TOTAL) * 100}%` : "0%";
   }
 
   function formatTime(sec) {
@@ -64,7 +93,7 @@
   function tickTimer() {
     const el = $("timer");
     el.textContent = formatTime(state.seconds);
-    el.classList.toggle("warn", state.seconds <= 300 && state.seconds > 60);
+    el.classList.toggle("warn", state.seconds <= 180 && state.seconds > 60);
     el.classList.toggle("danger", state.seconds <= 60);
     if (state.seconds <= 0) {
       clearInterval(state.timerId);
@@ -82,7 +111,7 @@
       btn.type = "button";
       btn.className = "nav-btn";
       btn.textContent = String(i + 1);
-      btn.title = q.format || q.subject;
+      btn.title = `${q.era} · ${q.choices[q.answer] || ""}`;
       btn.addEventListener("click", () => {
         state.index = i;
         renderQuestion();
@@ -141,14 +170,10 @@
   function renderQuestion() {
     const i = state.index;
     const q = Q[i];
-    $("qSubject").textContent = "한국사";
+    $("qSubject").textContent = q.era;
     const fmt = $("qFormat");
-    if (q.format) {
-      fmt.hidden = false;
-      fmt.textContent = q.format;
-    } else {
-      fmt.hidden = true;
-    }
+    fmt.hidden = false;
+    fmt.textContent = q.format || "인물·활약";
     $("qNum").textContent = `${i + 1} / ${TOTAL}`;
     $("qStem").textContent = q.stem;
 
@@ -204,14 +229,15 @@
   }
 
   function startTest() {
+    if (!Q.length) {
+      alert("선택한 시대에 문항이 없습니다.");
+      return;
+    }
     state.started = true;
     state.finished = false;
-    state.index = 0;
-    state.answers = Array(TOTAL).fill(null);
-    state.checked = Array(TOTAL).fill(false);
-    state.results = Array(TOTAL).fill(null);
+    resetArrays();
     state.timerOn = $("timerToggle").checked;
-    state.seconds = DEFAULT_SECONDS;
+    state.seconds = state.era === "전체" ? DEFAULT_SECONDS : 12 * 60;
 
     startPanel.hidden = true;
     resultPanel.hidden = true;
@@ -232,54 +258,62 @@
     }
   }
 
-  function computeScores() {
-    let correct = 0;
-    const wrongPeople = [];
-    Q.forEach((q, i) => {
-      const ok = state.answers[i] === q.answer;
-      state.results[i] = ok;
-      state.checked[i] = true;
-      if (ok) correct += 1;
-      else wrongPeople.push(q.choices[q.answer] || q.stem.slice(0, 24));
-    });
-    return { correct, wrongPeople };
-  }
-
   function finishTest(fromTimer) {
     if (state.timerId) clearInterval(state.timerId);
     state.finished = true;
 
-    const scores = computeScores();
-    const pct = Math.round((scores.correct / TOTAL) * 100);
-
-    saveAttempt({
-      at: Date.now(),
-      version: META.version || 5,
-      correct: scores.correct,
-      total: TOTAL,
-      wrong: scores.wrongPeople
+    let correct = 0;
+    const wrong = [];
+    const byEra = {};
+    Q.forEach((q, i) => {
+      if (!byEra[q.era]) byEra[q.era] = { name: q.era, correct: 0, total: 0 };
+      byEra[q.era].total += 1;
+      const ok = state.answers[i] === q.answer;
+      state.results[i] = ok;
+      state.checked[i] = true;
+      if (ok) {
+        correct += 1;
+        byEra[q.era].correct += 1;
+      } else {
+        wrong.push(q.choices[q.answer] || q.stem.slice(0, 20));
+      }
     });
+
+    const pct = TOTAL ? Math.round((correct / TOTAL) * 100) : 0;
+    try {
+      const hist = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      hist.unshift({ at: Date.now(), era: state.era, correct, total: TOTAL, wrong });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(hist.slice(0, 10)));
+    } catch (_) {}
 
     quizPanel.hidden = true;
     resultPanel.hidden = false;
     $("scoreTitle").textContent = fromTimer ? "시간 종료 · 자동 제출" : "채점 완료";
-    $("scoreLead").textContent = `인물·활약 문제 ${scores.correct}/${TOTAL}`;
+    $("scoreLead").textContent = `${state.era} · ${correct}/${TOTAL}`;
     $("scorePct").textContent = `${pct}%`;
-    $("scoreFrac").textContent = `${scores.correct} / ${TOTAL}`;
+    $("scoreFrac").textContent = `${correct} / ${TOTAL}`;
     $("scoreRing").style.setProperty("--p", `${pct}%`);
 
     const wbox = $("weaknessBox");
-    if (scores.wrongPeople.length) {
-      const uniq = [...new Set(scores.wrongPeople)].slice(0, 8);
+    if (wrong.length) {
+      const uniq = [...new Set(wrong)].slice(0, 8);
       wbox.innerHTML =
-        `<strong>다시 볼 인물·키워드</strong>` +
+        `<strong>다시 볼 인물</strong>` +
         uniq.map((n) => `<div class="weak-row"><span>${n}</span></div>`).join("") +
-        `<p class="weak-tip">위 인물을 암기 카드에서 찾아 업적만 다시 외워보세요.</p>`;
+        `<p class="weak-tip">해당 시대 카드만 다시 보고 같은 시대를 한 번 더 풀어보세요.</p>`;
     } else {
-      wbox.innerHTML = `<strong>훌륭합니다</strong><p class="weak-tip">전 문항 정답입니다. 암기 카드로 한 번 더 훑어보면 좋습니다.</p>`;
+      wbox.innerHTML = `<strong>완벽합니다</strong><p class="weak-tip">다른 시대로 이어서 풀어보세요.</p>`;
     }
 
-    $("subjectScores").innerHTML = `<article class="hot-score"><h3>한국사 (인물·활약)</h3><p>${scores.correct} / ${TOTAL} · ${pct}%</p></article>`;
+    const box = $("subjectScores");
+    box.innerHTML = "";
+    Object.values(byEra).forEach((s) => {
+      const rate = Math.round((s.correct / s.total) * 100);
+      const art = document.createElement("article");
+      if (rate < 70) art.classList.add("weak");
+      art.innerHTML = `<h3>${s.name}</h3><p>${s.correct} / ${s.total} · ${rate}%</p>`;
+      box.appendChild(art);
+    });
   }
 
   $("startBtn").addEventListener("click", startTest);
@@ -317,7 +351,7 @@
 
   document.addEventListener("keydown", (e) => {
     if (!state.started || state.finished || quizPanel.hidden) return;
-    if (e.target && (e.target.tagName === "TEXTAREA" || e.target.tagName === "INPUT")) return;
+    if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")) return;
     const q = Q[state.index];
     if (e.key >= "1" && e.key <= "5") {
       const ci = Number(e.key) - 1;
@@ -331,5 +365,7 @@
     if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) checkCurrent();
   });
 
+  renderEraButtons();
+  setEra("전체");
   renderFocusBanner();
 })();

@@ -1,8 +1,8 @@
-# 한국사 인물 집중 CBT (Set 5)
+# 한국사 시대별 인물 CBT (Set 6)
 
-- 역사만 40문항 · 인물·활약 중심 · 연도/타과목 없음
-- CBT: `index.html` / `quiz.html`
-- 인물 카드: `study.html` / `study-bundle.html`
+- 고대·남북국 / 고려 / 조선 / 근현대 각 10문항 (전체 40)
+- 인물·활약 중심, 연도·타과목 없음
+- 시작 화면에서 시대 선택 가능
 
 ```bash
 cd ncs-cbt && python3 -m http.server 8080

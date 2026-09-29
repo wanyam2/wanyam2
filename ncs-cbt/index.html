@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>한국사 인물 집중 · CBT</title>
+  <title>한국사 시대별 인물 CBT</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet" />
@@ -16,8 +16,8 @@
     <div class="brand">
       <span class="brand-mark">史</span>
       <div class="brand-text">
-        <strong>한국사 인물 CBT</strong>
-        <span>활약상 중심 · 역사만 · 빠른 학습</span>
+        <strong>시대별 인물 CBT</strong>
+        <span>Set 6 · 활약상 중심 · 역사만</span>
       </div>
     </div>
     <div class="top-meta" id="topMeta" hidden>
@@ -31,30 +31,24 @@
 
   <main>
     <section class="panel start-panel" id="startPanel">
-      <p class="eyebrow">History Only · Set 5</p>
-      <h1>인물과 활약으로<br />한국사 빠르게</h1>
-      <p class="lead">역사 40문항 · 연도 암기 없음 · 타과목 없음 · 즉시 채점</p>
+      <p class="eyebrow">History Only · Set 6</p>
+      <h1>시대를 고르고<br />인물로 복습</h1>
+      <p class="lead">시대별 10문항 · 전체 40문항 · 연도 암기 없음</p>
 
       <div class="focus-banner" id="focusBanner"></div>
 
-      <ul class="subject-grid" aria-label="학습 범위">
-        <li class="hot"><b>인물·활약</b><span>누가 무엇을 했는가</span></li>
-        <li class="hot"><b>사료·저술</b><span>대표 저작과 업적</span></li>
-        <li class="hot"><b>독립운동</b><span>의거·전투·지도자</span></li>
-        <li><b>제외</b><span>연도 퀴즈</span></li>
-        <li><b>제외</b><span>수리·영어 혼합</span></li>
-        <li><b>제외</b><span>이전 세트 중복</span></li>
-      </ul>
+      <p class="era-label">풀 시대 선택</p>
+      <div class="era-buttons" id="eraButtons" aria-label="시대 선택"></div>
+      <p class="hint" id="eraCount">전체 40문항</p>
 
-      <div class="cta-row">
-        <button type="button" class="btn primary" id="startBtn">바로 풀기</button>
-        <a class="btn secondary" href="study.html">인물 암기 카드</a>
+      <div class="cta-row" style="margin-top:1.25rem">
+        <button type="button" class="btn primary" id="startBtn">선택한 범위 풀기</button>
+        <a class="btn secondary" href="study.html">인물 카드</a>
         <label class="check-inline">
           <input type="checkbox" id="timerToggle" checked />
-          30분 타이머
+          타이머
         </label>
       </div>
-      <p class="hint">추천: 인물 카드를 2분만 보고 → 문제 풀기 → 틀린 인물만 다시 보기</p>
     </section>
 
     <section class="panel quiz-panel" id="quizPanel" hidden>
@@ -97,9 +91,9 @@
       <div class="weakness-box" id="weaknessBox"></div>
       <div class="subject-scores" id="subjectScores"></div>
       <div class="cta-row">
-        <button type="button" class="btn primary" id="reviewBtn">오답만 다시보기</button>
-        <a class="btn secondary" href="study.html">인물 카드 복습</a>
-        <button type="button" class="btn ghost" id="restartBtn">다시 풀기</button>
+        <button type="button" class="btn primary" id="reviewBtn">오답 다시보기</button>
+        <a class="btn secondary" href="study.html">인물 카드</a>
+        <button type="button" class="btn ghost" id="restartBtn">시대 다시 선택</button>
       </div>
     </section>
   </main>

@@ -1,52 +1,60 @@
 (() => {
   const packs = {
     ancient: [
+      { q: "근초고왕", a: "백제 전성기·마한 통합" },
+      { q: "성왕", a: "사비 천도·백제 중흥" },
+      { q: "진흥왕", a: "신라 영토 확장·화랑도 정비" },
+      { q: "김춘추", a: "나당 연합·무열왕" },
+      { q: "문무왕", a: "당군 격퇴·통일 완성" },
+      { q: "을지문덕", a: "살수대첩" },
+      { q: "양만춘", a: "안시성 방어" },
+      { q: "의상", a: "화엄종·부석사" },
+      { q: "견훤", a: "후백제 건국" },
+      { q: "궁예", a: "후고구려·태봉" },
       { q: "주몽", a: "고구려 건국" },
-      { q: "온조", a: "백제 건국" },
-      { q: "광개토왕", a: "고구려 영토 확장·정복" },
-      { q: "김유신", a: "삼국 통일 전쟁 활약" },
-      { q: "계백", a: "황산벌에서 결사 항전" },
-      { q: "대조영", a: "발해 건국" },
-      { q: "장보고", a: "청해진 설치·해상 세력" },
-      { q: "원효", a: "불교 대중화·화쟁 사상" }
+      { q: "장보고", a: "청해진·해상 세력" }
     ],
     goryeo: [
-      { q: "왕건", a: "고려 건국·호족 포용" },
-      { q: "광종", a: "과거제·노비안검법으로 왕권 강화" },
-      { q: "성종", a: "최승로 시무책 수용·유교 정치 정비" },
-      { q: "김부식", a: "『삼국사기』 편찬" },
-      { q: "일연", a: "『삼국유사』 저술" }
+      { q: "서희", a: "강동 6주 확보 외교" },
+      { q: "강감찬", a: "귀주대첩" },
+      { q: "윤관", a: "별무반·여진 정벌" },
+      { q: "최충헌", a: "최씨 무신정권 기반" },
+      { q: "최우", a: "강화 천도·대몽 항전" },
+      { q: "공민왕", a: "반원·개혁 정치" },
+      { q: "신돈", a: "공민왕 개혁 보좌" },
+      { q: "의천", a: "천태종 정비" },
+      { q: "지눌", a: "수선사 결사·정혜쌍수" },
+      { q: "김부식", a: "묘청의 난 진압·삼국사기" },
+      { q: "왕건", a: "고려 건국" },
+      { q: "광종", a: "과거제·왕권 강화" }
     ],
     joseon: [
-      { q: "이성계", a: "위화도 회군 후 조선 건국" },
-      { q: "정도전", a: "재상 중심 유교 정치 구상" },
-      { q: "정몽주", a: "고려 충신 (선죽교 설화)" },
-      { q: "세종", a: "훈민정음 창제 주도" },
-      { q: "성종", a: "『경국대전』 완성·반포" },
-      { q: "이순신", a: "수군 지휘·한산도 대첩 등" },
-      { q: "권율", a: "행주대첩" },
-      { q: "곽재우", a: "의병장 (홍의장군)" },
-      { q: "김육", a: "대동법 추진" },
-      { q: "영조", a: "균역법·탕평" },
-      { q: "정조", a: "규장각·문물 정비" },
-      { q: "정약용", a: "『목민심서』 등 실학" },
-      { q: "박지원", a: "『열하일기』" },
-      { q: "이황", a: "『성학십도』·성리학" },
-      { q: "이이", a: "사회 개혁론·양병 강조 일화" },
-      { q: "흥선대원군", a: "서원 철폐·경복궁 중건" }
+      { q: "태종", a: "사병 혁파·왕권 강화" },
+      { q: "세종", a: "훈민정음·민본·과학" },
+      { q: "중종", a: "조광조 등용(기묘사화)" },
+      { q: "조광조", a: "도학 정치·현량과" },
+      { q: "신립", a: "탄금대 전투" },
+      { q: "김시민", a: "진주대첩" },
+      { q: "효종", a: "북벌론" },
+      { q: "유형원", a: "『반계수록』" },
+      { q: "박제가", a: "『북학의』" },
+      { q: "김정희", a: "추사체·금석학" },
+      { q: "이순신", a: "수군·한산도 대첩" },
+      { q: "정약용", a: "『목민심서』" }
     ],
     modern: [
-      { q: "김옥균", a: "갑신정변 주도" },
-      { q: "전봉준", a: "동학농민운동 지도" },
-      { q: "민영환", a: "을사늑약 반대·순국" },
+      { q: "흥선대원군", a: "통상 수교 거부·서원 철폐" },
+      { q: "박규수", a: "개화 사상 영향" },
+      { q: "최익현", a: "위정척사·의병" },
+      { q: "유길준", a: "『서유견문』" },
+      { q: "서재필", a: "독립협회·만민공동회" },
+      { q: "이준", a: "헤이그 특사" },
+      { q: "김원봉", a: "의열단" },
+      { q: "이봉창", a: "도쿄 의거" },
+      { q: "김구", a: "임시정부·광복군" },
+      { q: "여운형", a: "건준·좌우합작" },
       { q: "안중근", a: "이토 히로부미 저격" },
-      { q: "김구", a: "한인 애국단·의거 지원" },
-      { q: "윤봉길", a: "홍커우 공원 의거" },
-      { q: "유관순", a: "3·1 운동 만세 시위" },
-      { q: "홍범도", a: "봉오동 전투 등 독립군 지휘" },
-      { q: "김좌진", a: "청산리 전투 지휘" },
-      { q: "신채호", a: "민족주의 사학·『조선상고사』" },
-      { q: "주시경", a: "국어·한글 연구·보급" }
+      { q: "윤봉길", a: "홍커우 공원 의거" }
     ]
   };
 
@@ -112,26 +120,11 @@
   }
 
   function updateMatchScore() {
-    const buttons = matchBox.querySelectorAll(".match-choices button:disabled");
     const groups = matchBox.querySelectorAll(".match-item").length;
-    const answered = matchBox.querySelectorAll(".match-choices").length
-      ? [...matchBox.querySelectorAll(".match-choices")].filter((r) =>
-          [...r.children].some((c) => c.disabled)
-        ).length
-      : 0;
-    const ok = matchBox.querySelectorAll(".match-choices button.ok:not(.no)").length;
-    // count items where correct selected: button.ok that was clicked - simpler:
+    const answered = [...matchBox.querySelectorAll(".match-choices")].filter((r) =>
+      [...r.children].some((c) => c.disabled)
+    ).length;
     let correct = 0;
-    matchBox.querySelectorAll(".match-item").forEach((item) => {
-      const chosenOk = item.querySelector("button.ok");
-      const chosenNo = item.querySelector("button.no");
-      if (chosenOk && !chosenNo) correct += 1;
-      else if (chosenOk && chosenNo) {
-        /* wrong then reveal */
-      } else if (chosenOk && chosenNo === null) correct += 1;
-    });
-    // Fix: if user picked wrong, both .no and .ok exist → not correct
-    correct = 0;
     matchBox.querySelectorAll(".match-item").forEach((item) => {
       const no = item.querySelector("button.no");
       const okBtn = item.querySelector("button.ok");
